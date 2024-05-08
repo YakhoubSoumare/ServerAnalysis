@@ -148,3 +148,5 @@ D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Scrut
 D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
 D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
 D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\AutoMapper.dll
+D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Npgsql.dll
+D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

@@ -71,6 +71,10 @@
               "target": "Package",
               "version": "[8.0.4, )"
             },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
             "ServiceStack.Text": {
               "target": "Package",
               "version": "[8.2.2, )"
