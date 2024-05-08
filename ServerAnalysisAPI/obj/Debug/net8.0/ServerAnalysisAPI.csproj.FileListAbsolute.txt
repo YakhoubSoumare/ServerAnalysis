@@ -147,3 +147,4 @@ D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\obj\Debug\net8.0\ref\S
 D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Scrutor.dll
 D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
 D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+D:\YH\ITHS\Examensarbete\ServerAnalysis\ServerAnalysisAPI\bin\Debug\net8.0\AutoMapper.dll

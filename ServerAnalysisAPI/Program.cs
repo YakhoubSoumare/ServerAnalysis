@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-using ServerAnalysisAPI.Services;
+using ServerAnalysisAPI.Profiles;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,11 +49,18 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+ConfigureAutomapper(builder.Services);
+
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 	.AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddScoped<AccountService>();
+
+builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+
+builder.Services.AddScoped<IDbService, DbService>();
 
 var app = builder.Build();
 
@@ -78,6 +85,30 @@ using (var scope = app.Services.CreateScope())
 	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 	var accountService = new AccountService(userManager, roleManager);
 	accountService.CreateRolesAsync().GetAwaiter().GetResult();
+
+	//Seeding admin if none exists
+	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+	dataSeeder.SeedData().Wait();
 }
 
 app.Run();
+
+#region Functions
+void ConfigureAutomapper(IServiceCollection services)
+{
+	var config = new MapperConfiguration(cfg =>
+	{
+		cfg.CreateMap<Source, SourceDto>().ReverseMap();
+		cfg.CreateMap<Benefit, BenefitDto>().ReverseMap();
+		cfg.CreateMap<Topic, TopicDto>().ReverseMap();
+		cfg.CreateMap<ServerBasedApplication, ServerBasedApplicationDto>().ReverseMap();
+		cfg.CreateMap<ServerlessFunction, ServerlessFunctionDto>().ReverseMap();
+		cfg.CreateMap<ServerBasedApplicationSource, ServerBasedApplicationSourceDto>().ReverseMap();
+		cfg.CreateMap<ServerlessFunctionSource, ServerlessFunctionSourceDto>().ReverseMap();
+		cfg.CreateMap<BenefitSource, BenefitSourceDto>().ReverseMap();
+	});
+	var mapper = config.CreateMapper();
+
+	builder.Services.AddSingleton(mapper);
+}
+#endregion
