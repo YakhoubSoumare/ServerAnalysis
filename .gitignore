@@ -1,3 +1,10 @@
 .vs/
 
+# env file
 .env
+
+# Exclude DLLs
+*.dll
+
+# Exclude cache files
+*.cache
