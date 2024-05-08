@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerAnalysisAPI", "ServerAnalysisAPI\ServerAnalysisAPI.csproj", "{0BCF711B-552D-4DFD-A9AE-CBDFC8465B9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{566F2C44-9709-4B71-9254-DC5B4EC08A16}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BCF711B-552D-4DFD-A9AE-CBDFC8465B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BCF711B-552D-4DFD-A9AE-CBDFC8465B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BCF711B-552D-4DFD-A9AE-CBDFC8465B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BCF711B-552D-4DFD-A9AE-CBDFC8465B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5282EFF7-4FEE-4151-BC4C-A29341B99462}
+	EndGlobalSection
+EndGlobal
