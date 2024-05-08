@@ -6,5 +6,9 @@
 # Exclude DLLs
 *.dll
 
-# Exclude cache files
+# cache files
 *.cache
+
+# obj and bin folders files
+**/obj/
+**/bin/
