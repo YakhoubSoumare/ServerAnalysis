@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServerAnalysisAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+969e1f7299a12911181d4612ead22c04131e49d6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServerAnalysisAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServerAnalysisAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
