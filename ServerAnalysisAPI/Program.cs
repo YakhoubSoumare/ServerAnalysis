@@ -12,7 +12,8 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 	if (env.IsDevelopment())
 	{
 		DotNetEnv.Env.Load("../.env"); // local environment variable
-connectionString = Environment.GetEnvironmentVariable("LOCAL_CONNECTION");
+		//connectionString = Environment.GetEnvironmentVariable("LOCAL_CONNECTION");
+		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
 	}
 	else
 {
@@ -24,7 +25,9 @@ if (connectionString is null)
 	throw new InvalidOperationException("Connection string is not set.");
 }
 
-options.UseSqlServer(connectionString);
+	//options.UseSqlServer(connectionString);
+	options.UseNpgsql(connectionString);
+	
 });
 
 builder.Services.AddControllers();
