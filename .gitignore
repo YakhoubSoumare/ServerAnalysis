@@ -12,3 +12,6 @@
 # obj and bin folders files
 **/obj/
 **/bin/
+
+# front-end
+ServerAnalysisFrontEnd/Planning/
