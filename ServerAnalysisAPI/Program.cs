@@ -16,14 +16,14 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
 	}
 	else
-{
-	connectionString = Environment.GetEnvironmentVariable("PROD_CONNECTION_STRING");
-}
+	{
+		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+	}
 
-if (connectionString is null)
-{
-	throw new InvalidOperationException("Connection string is not set.");
-}
+	if (connectionString is null)
+	{
+		throw new InvalidOperationException("Connection string is not set.");
+	}
 
 	//options.UseSqlServer(connectionString);
 	options.UseNpgsql(connectionString);
