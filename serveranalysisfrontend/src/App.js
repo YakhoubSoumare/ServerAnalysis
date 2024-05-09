@@ -10,11 +10,7 @@ function App() {
         <h1>Serververless Functions vs. Server-based Applications</h1>
         <nav className="navbar">
           <div className="hamburger-menu" onClick={() => setIsOpen(!isOpen)}>☰</div>
-          <ul>
-            <li>Home</li>
-            <li>Thesis</li>
-          </ul>
-          <div className={isOpen ? 'dropdown open' : ''}>
+          <div className={isOpen ? 'menu' : 'menu open'}>
             <ul>
               <li>Home</li>
               <li>Thesis</li>

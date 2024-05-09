@@ -42,29 +42,39 @@
   font-size: 2em;
 }
 
-.navbar {
+.navbar { /* horizontal children, all children container start (left) */
   display: flex;
   justify-content: flex-start;
   position: relative;
 }
 
-.navbar ul {
+.menu {
+  top: 100%; /* Positions the dropdown just below the bottom edge of .navbar */
+  left: 0;
+  background-color: aqua;
+  width: 100%;
+  position: relative;
+}
+
+.menu ul { /* horizontal container start (left), without bullet point */
   display: flex;
   list-style-type: none;
   padding: 0;
 }
 
-.navbar ul li {
+.menu.open {
+  background-color: red;
+}
+
+.test ul li { /* margin right between elements */
   margin-right: 20px;
 }
 
-.dropdown {
+
+
+.dropdown{
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: aqua;
-  width: 100%;
+  
 }
 
 .dropdown ul {
@@ -79,39 +89,28 @@
   margin: 10px 0;
 }
 
-.hamburger-menu {
+.hamburger-menu { /* hamburger icon */
   display: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 600px){ /* breakpoint for small screens */
   .App-header h1 {
     font-size: 1em;
   }
 
-  .navbar ul {
-    display: none; /* Hide navigation links on smaller screens */
+  menu.ul{
+    flex-direction: column;
   }
 
-  .navbar .dropdown {
-    display: none; /* Hide dropdown by default on smaller screens */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: aqua;
-    width: 100%;
+  .navbar ul { /* hides it */
+    /*display: none;*/
   }
 
-  .navbar .dropdown.open {
-    display: flex; /* Show dropdown when hamburger menu is clicked */
+  .dropdown.open {
+    display: flex;
   }
 
-  .navbar .dropdown ul li {
-    /* Specific styles for dropdown list items */
-    margin: 10px 0;
-    color: black; /* Example color change */
-  }
-
-  .hamburger-menu {
+  .hamburger-menu { /* hamburger icon */
     display: block;
   }
 }
