@@ -9,15 +9,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ServerAnalysisAPI/ServerAnalysisAPI.csproj", "ServerAnalysisAPI/"]
-RUN dotnet restore "./ServerAnalysisAPI/ServerAnalysisAPI.csproj"
+COPY ["./ServerAnalysisAPI.csproj", "./"]
+RUN dotnet restore "./ServerAnalysisAPI.csproj"
 COPY . .
-WORKDIR "/src/ServerAnalysisAPI"
-RUN dotnet build "./ServerAnalysisAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src"
+RUN dotnet build "ServerAnalysisAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ServerAnalysisAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ServerAnalysisAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
