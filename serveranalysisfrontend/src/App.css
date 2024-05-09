@@ -1,4 +1,4 @@
-.App {
+.App { /* centers the text of any element with the class App. */
   text-align: center;
 }
 
@@ -13,26 +13,105 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
+
+.App-link { /* sets the text color of elements with the class App-link to a light blue color. */
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes App-logo-spin { /* rotates the element from 0 degrees to 360 degree, spinning circle */
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/*
+* Own implementations
+*/
+
+.App-header { /* px is fixed */
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-header h1 { /* em is relative */
+  font-size: 2em;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.navbar ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin-right: 20px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: aqua;
+  width: 100%;
+}
+
+.dropdown ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown ul li {
+  margin: 10px 0;
+}
+
+.hamburger-menu {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .App-header h1 {
+    font-size: 1em;
+  }
+
+  .navbar ul {
+    display: none; /* Hide navigation links on smaller screens */
+  }
+
+  .navbar .dropdown {
+    display: none; /* Hide dropdown by default on smaller screens */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: aqua;
+    width: 100%;
+  }
+
+  .navbar .dropdown.open {
+    display: flex; /* Show dropdown when hamburger menu is clicked */
+  }
+
+  .navbar .dropdown ul li {
+    /* Specific styles for dropdown list items */
+    margin: 10px 0;
+    color: black; /* Example color change */
+  }
+
+  .hamburger-menu {
+    display: block;
   }
 }
