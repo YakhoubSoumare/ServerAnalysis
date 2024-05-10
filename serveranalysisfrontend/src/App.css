@@ -1,0 +1,123 @@
+.App { /* centers the text of any element with the class App. */
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+
+.App-link { /* sets the text color of elements with the class App-link to a light blue color. */
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin { /* rotates the element from 0 degrees to 360 degree, spinning circle */
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*
+* Own implementations
+*/
+
+.app-header {
+  position: fixed;
+  width: 100%;
+  top: 0; 
+  border: 2px solid blue;
+}
+
+.non-mobile-header{
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  border: 2px solid red;
+  margin: 0;
+}
+
+.non-mobile-header h1 {
+  font-size: 2em;
+}
+
+.mobile-header{
+  font-size: 1.2em;
+  padding: 20px;
+  border: 2px solid red;
+  margin: 0;
+  display: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid red;
+  margin: 0;
+  background-color: #282c34;
+  color: white;
+}
+
+.navbar ul {
+  display: flex; 
+  list-style-type: none; 
+  padding: 0;
+}
+
+.navbar ul li {
+  padding: 0 10px;
+  font-size: 20px; 
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.navbar ul li:not(.hamburger):hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar ul li.hamburger {
+  display: none;
+  padding: 0 10px;
+}
+
+.navbar ul.dropdown {
+  flex-direction: column;
+  width: 100%;
+}
+
+.navbar ul.dropdown li {
+  margin: 20px 0;
+  display: block;
+}
+
+@media (max-width: 600px){
+  .navbar ul:not(.dropdown) li:not(.hamburger):not(.home) {
+      display: none;
+  }
+
+  .navbar ul li.hamburger {
+      display: block;
+  }
+}
+
+@media (max-width: 400px){
+  .non-mobile-header {
+      display: none;
+  }
+
+  .mobile-header {
+      display: block;
+  }
+}

@@ -1,5 +1,9 @@
 .vs/
 
+# guides and implementation plans
+Planning/
+
+###################################### BACKEND ######################################
 # env file
 .env
 
@@ -13,5 +17,18 @@
 **/obj/
 **/bin/
 
-# front-end
-ServerAnalysisFrontEnd/Planning/
+###################################### FRONTEND ######################################
+
+# dependencies
+serveranalysisfrontend/node_modules
+
+# testing
+serveranalysisfrontend/coverage
+
+# production
+serveranalysisfrontend/build
+
+# misc
+serveranalysisfrontend/.DS_Store
+serveranalysisfrontend/.cache
+serveranalysisfrontend/*.log
