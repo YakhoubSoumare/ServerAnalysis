@@ -14,8 +14,8 @@ function App() {
                 <nav className="navbar">
                     <ul className={isOpen ? '' : 'dropdown'}>
                         <li className="home">Home</li>
-                        <li>About</li>
                         <li>Thesis</li>
+                        <li>About</li>
                     </ul>
                     <ul>  
                       <li className="hamburger" onClick={() => {setIsOpen(!isOpen)}}>☰</li>
