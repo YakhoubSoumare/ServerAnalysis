@@ -32,85 +32,92 @@
 * Own implementations
 */
 
-.App-header { /* px is fixed */
+.app-header {
+  position: fixed;
+  width: 100%;
+  top: 0; 
+  border: 2px solid blue;
+}
+
+.non-mobile-header{
   background-color: #282c34;
   padding: 20px;
   color: white;
-}
-
-.App-header h1 { /* em is relative */
-  font-size: 2em;
-}
-
-.navbar { /* horizontal children, all children container start (left) */
-  display: flex;
-  justify-content: flex-start;
-  position: relative;
-}
-
-.menu {
-  top: 100%; /* Positions the dropdown just below the bottom edge of .navbar */
-  left: 0;
-  background-color: aqua;
-  width: 100%;
-  position: relative;
-}
-
-.menu ul { /* horizontal container start (left), without bullet point */
-  display: flex;
-  list-style-type: none;
-  padding: 0;
-}
-
-.menu.open {
-  background-color: red;
-}
-
-.test ul li { /* margin right between elements */
-  margin-right: 20px;
-}
-
-
-
-.dropdown{
-  display: none;
-  
-}
-
-.dropdown ul {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0;
+  border: 2px solid red;
   margin: 0;
 }
 
-.dropdown ul li {
-  margin: 10px 0;
+.non-mobile-header h1 {
+  font-size: 2em;
 }
 
-.hamburger-menu { /* hamburger icon */
+.mobile-header{
+  font-size: 1.2em;
+  padding: 20px;
+  border: 2px solid red;
+  margin: 0;
   display: none;
 }
 
-@media (max-width: 600px){ /* breakpoint for small screens */
-  .App-header h1 {
-    font-size: 1em;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid red;
+  margin: 0;
+  background-color: #282c34;
+  color: white;
+}
+
+.navbar ul {
+  display: flex; 
+  list-style-type: none; 
+  padding: 0;
+}
+
+.navbar ul li {
+  padding: 0 10px;
+  font-size: 20px; 
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.navbar ul li:not(.hamburger):hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar ul li.hamburger {
+  display: none;
+  padding: 0 10px;
+}
+
+.navbar ul.dropdown {
+  flex-direction: column;
+  width: 100%;
+}
+
+.navbar ul.dropdown li {
+  margin: 20px 0;
+  display: block;
+}
+
+@media (max-width: 600px){
+  .navbar ul:not(.dropdown) li:not(.hamburger):not(.home) {
+      display: none;
   }
 
-  menu.ul{
-    flex-direction: column;
+  .navbar ul li.hamburger {
+      display: block;
+  }
+}
+
+@media (max-width: 400px){
+  .non-mobile-header {
+      display: none;
   }
 
-  .navbar ul { /* hides it */
-    /*display: none;*/
-  }
-
-  .dropdown.open {
-    display: flex;
-  }
-
-  .hamburger-menu { /* hamburger icon */
-    display: block;
+  .mobile-header {
+      display: block;
   }
 }
