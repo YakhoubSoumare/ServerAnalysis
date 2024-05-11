@@ -55,10 +55,7 @@ function App() {
                     </Routes>
                 </body>
                 <footer className="app-footer">
-                    <p>© 2024 Serverless Functions vs. Server-based Applications</p>
-                    <p>Thesis by Yakhoub Soumare</p>
-                    <p>Presented to IT-Högskolan</p>
-                    <p>In collaboration with Meta Bytes</p>
+                    <p>© 2024 - Author Yakhoub Soumare</p>
                 </footer>
             </div>
         </Router>
