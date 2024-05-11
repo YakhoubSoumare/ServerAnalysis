@@ -1,32 +1,36 @@
-import React , { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
 import Thesis from './components/Thesis';
 import About from './components/About';
+import useScreenResize from './customHooks/useScreenResize';
+import useFetchData from './customHooks/useFetchData';
+
+const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+const endpoints = [
+    'topics',
+    'serverbasedapplications', 
+    'serverlessfunctions',  
+    'benefits', 
+    'sources'
+];
 
 function App() {
+    const [isOpen, setIsOpen] = useScreenResize(false);
+    // const {data, error} = useFetchData(baseUrl, endpoints);
+    const data = useFetchData(baseUrl, endpoints);
 
-    const [isOpen, setIsOpen] = useState(false);
+    console.log("Fetched data: ", data); // test
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > 600) {
-                setIsOpen(false);
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    // if (error) {
+    //     return <div>Error: {error}</div>; // Add this line
+    // }
 
     return (
         <Router>
             <div className="App">
-                <header className="app-header">
+                <div className="app-header">
                     <div className="non-mobile-header">
                         <h1>Serververless Functions vs. Server-based Applications</h1>
                     </div>
@@ -46,17 +50,17 @@ function App() {
                         <li className="hamburger" onClick={() => {setIsOpen(!isOpen)}}>☰</li>
                         </ul>
                     </nav>
-                </header>
-                <body className="app-body">
+                </div>
+                <div className="app-body">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/thesis" element={<Thesis />} />
                         <Route path="/about" element={<About />} />
                     </Routes>
-                </body>
-                <footer className="app-footer">
+                </div>
+                <div className="app-footer">
                     <p>© 2024 - Author Yakhoub Soumare</p>
-                </footer>
+                </div>
             </div>
         </Router>
     );
