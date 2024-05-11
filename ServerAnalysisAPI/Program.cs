@@ -46,10 +46,6 @@ builder.Services.AddSwaggerGen(options =>
 	options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-//builder.Services.AddDbContext<DataContext>(options =>
-//	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-//);
-
 builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -65,7 +61,19 @@ builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
 builder.Services.AddScoped<IDbService, DbService>();
 
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAll", policy =>
+	{
+		policy.AllowAnyOrigin()
+			.AllowAnyMethod()
+			.AllowAnyHeader();
+	});
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
