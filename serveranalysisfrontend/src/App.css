@@ -1,0 +1,156 @@
+.App { 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.app-header {
+  position: sticky;
+  width: 100%;
+  top: 0; 
+  border: 2px solid blue;
+  z-index: 1;
+}
+
+.app-body{
+  flex-grow: 1;
+  z-index: 0;
+  background-color: red;
+}
+
+.app-footer {
+  position: sticky;
+  background-color: #282c34;
+  color: white;
+  width: 100%;
+  bottom: 0;
+  border: 2px solid blue;
+  margin: 0;
+  padding: 20px;
+  z-index: 1;
+}
+
+.non-mobile-header{
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  border: 2px solid red;
+  margin: 0;
+}
+
+.non-mobile-header h1 {
+  font-size: 2em;
+}
+
+.mobile-header{
+  font-size: 1.2em;
+  padding: 20px;
+  border: 2px solid red;
+  margin: 0;
+  display: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid red;
+  margin: 0;
+  background-color: #282c34;
+  color: white;
+}
+
+.navbar ul {
+  display: flex; 
+  list-style-type: none; 
+  padding: 0;
+}
+
+.navbar ul li {
+  padding: 0 10px;
+  font-size: 20px; 
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.navbar ul li:not(.hamburger):hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar ul li.hamburger {
+  display: none;
+  padding: 0 10px;
+}
+
+.navbar ul.dropdown {
+  flex-direction: column;
+  width: 100%;
+}
+
+.navbar ul.dropdown li {
+  margin: 20px 0;
+  display: block;
+}
+
+.navbar a {
+  color: inherit;      
+  cursor: pointer;     
+  text-decoration: none;
+}
+
+.page-title {
+  font-size: 2em;
+  padding: 20px;
+  border: 2px solid red;
+  margin: 0;
+}
+
+@media (max-width: 600px){
+  .navbar ul:not(.dropdown) li:not(.hamburger):not(.home) {
+      display: none;
+  }
+
+  .navbar ul li.hamburger {
+      display: block;
+  }
+}
+
+@media (max-width: 400px){
+  .non-mobile-header {
+      display: none;
+  }
+
+  .mobile-header {
+      display: block;
+  }
+
+  .page-title {
+      font-size: 1.2em;
+  }
+}
