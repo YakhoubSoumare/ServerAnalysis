@@ -1,8 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  margin: 0;
+  padding: 0px;
+  text-align: center;
+}
+
 .App { 
   text-align: center;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
+  padding: 0px;
 }
 
 .App-logo {
@@ -31,7 +43,6 @@
 
 .app-header {
   position: sticky;
-  width: 100%;
   top: 0; 
   border: 2px solid blue;
   z-index: 1;
