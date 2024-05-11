@@ -1,5 +1,8 @@
-.App { /* centers the text of any element with the class App. */
+.App { 
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -13,13 +16,11 @@
   }
 }
 
-
-
-.App-link { /* sets the text color of elements with the class App-link to a light blue color. */
+.App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin { /* rotates the element from 0 degrees to 360 degree, spinning circle */
+@keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -28,15 +29,30 @@
   }
 }
 
-/*
-* Own implementations
-*/
-
 .app-header {
-  position: fixed;
+  position: sticky;
   width: 100%;
   top: 0; 
   border: 2px solid blue;
+  z-index: 1;
+}
+
+.app-body{
+  flex-grow: 1;
+  z-index: 0;
+  background-color: red;
+}
+
+.app-footer {
+  position: sticky;
+  background-color: #282c34;
+  color: white;
+  width: 100%;
+  bottom: 0;
+  border: 2px solid blue;
+  margin: 0;
+  padding: 20px;
+  z-index: 1;
 }
 
 .non-mobile-header{
@@ -102,6 +118,19 @@
   display: block;
 }
 
+.navbar a {
+  color: inherit;      
+  cursor: pointer;     
+  text-decoration: none;
+}
+
+.page-title {
+  font-size: 2em;
+  padding: 20px;
+  border: 2px solid red;
+  margin: 0;
+}
+
 @media (max-width: 600px){
   .navbar ul:not(.dropdown) li:not(.hamburger):not(.home) {
       display: none;
@@ -119,5 +148,9 @@
 
   .mobile-header {
       display: block;
+  }
+
+  .page-title {
+      font-size: 1.2em;
   }
 }
