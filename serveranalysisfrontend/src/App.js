@@ -7,7 +7,8 @@ import About from './components/About';
 import useScreenResize from './customHooks/useScreenResize';
 import useFetchData from './customHooks/useFetchData';
 
-const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+const baseUrl = 'api'; // test
+// const baseUrl = 'https://serveranalysisapi.onrender.com/api';
 const endpoints = [
     'topics',
     'serverbasedapplications', 
