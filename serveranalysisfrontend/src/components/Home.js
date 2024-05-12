@@ -3,7 +3,7 @@ import React from "react";
 const Home = ({ data }) => {
     return (
         <>
-            <h1 className="mobile-header">Serververless Functions vs. Server-based Applications</h1>
+            <h1 className="page-title">Serververless Functions vs. Server-based Applications</h1>
             <>
                 {data.map(([endpoint, data], index) => (
                     <div key={index}>
