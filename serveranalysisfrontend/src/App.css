@@ -55,11 +55,18 @@ pre {
   height: 100vh;
 }
 
-.app-header {
+.sticky-element {
   position: sticky;
-  top: 0; 
+  color: white;
   border: 2px solid blue;
+  margin: 0;
   z-index: 1;
+}
+
+.navbar {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .app-body{
@@ -69,44 +76,9 @@ pre {
 }
 
 .app-footer {
-  position: sticky;
-  background-color: #282c34;
-  color: white;
   width: 100%;
   bottom: 0;
-  border: 2px solid blue;
-  margin: 0;
   padding: 20px;
-  z-index: 1;
-}
-
-.non-mobile-header{
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
-  border: 2px solid red;
-  margin: 0;
-}
-
-.non-mobile-header h1 {
-  font-size: 2em;
-}
-
-.mobile-header{
-  font-size: 1.2em;
-  padding: 20px;
-  border: 2px solid red;
-  margin: 0;
-  display: none;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  border: 2px solid red;
-  margin: 0;
-  background-color: #282c34;
-  color: white;
 }
 
 .navbar ul {
@@ -167,15 +139,9 @@ pre {
 }
 
 @media (max-width: 400px){
-  .non-mobile-header {
-      display: none;
-  }
-
-  .mobile-header {
-      display: block;
-  }
 
   .page-title {
       font-size: 1.2em;
   }
+  
 }
