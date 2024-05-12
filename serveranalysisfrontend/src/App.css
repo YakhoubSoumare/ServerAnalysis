@@ -21,6 +21,7 @@ pre {
   min-height: 100vh;
   margin: 0;
   padding: 0px;
+  background-color: #FEFCFF;
 }
 
 .App-logo {
@@ -55,30 +56,37 @@ pre {
   height: 100vh;
 }
 
-.sticky-element {
-  position: sticky;
-  color: white;
-  border: 2px solid blue;
-  margin: 0;
-  z-index: 1;
+.transparent {
+  background-color: rgba(40, 44, 52, 0.9) !important;
 }
 
 .navbar {
-  top: 0;
+  top: 0; 
+  border: 2px solid blue;
+  position: sticky;
   display: flex;
+  background-color: #282c34;
+  z-index: 1;
+  color: white;
   justify-content: space-between;
+  margin: 0;
 }
 
 .app-body{
   flex-grow: 1;
   z-index: 0;
-  background-color: red;
 }
 
 .app-footer {
+  position: sticky;
+  background-color: #282c34;
+  color: white;
   width: 100%;
   bottom: 0;
-  padding: 20px;
+  border: 2px solid blue;
+  padding: 0 20px;
+  margin: 0;
+  z-index: 1;
 }
 
 .navbar ul {
@@ -95,9 +103,12 @@ pre {
   text-align: center;
 }
 
-.navbar ul li:not(.hamburger):hover {
+.navbar ul li:hover {
+  color: rgb(29, 135, 206);
+}
+
+.navbar ul.dropdown li:not(.hamburger):hover {
   background-color: #ddd;
-  color: black;
 }
 
 .navbar ul li.hamburger {
