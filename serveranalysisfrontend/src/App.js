@@ -18,14 +18,13 @@ const endpoints = [
 
 function App() {
     const [isOpen, setIsOpen] = useScreenResize(false);
-    // const {data, error} = useFetchData(baseUrl, endpoints);
-    const data = useFetchData(baseUrl, endpoints);
+    const {data, loading} = useFetchData(baseUrl, endpoints);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     console.log("Fetched data: ", data); // test
-
-    // if (error) {
-    //     return <div>Error: {error}</div>; // Add this line
-    // }
 
     return (
         <Router>
@@ -53,7 +52,7 @@ function App() {
                 </div>
                 <div className="app-body">
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" element={<Home data={data} />} />
                         <Route path="/thesis" element={<Thesis />} />
                         <Route path="/about" element={<About />} />
                     </Routes>
