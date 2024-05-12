@@ -6,6 +6,7 @@ import Thesis from './components/Thesis';
 import About from './components/About';
 import useScreenResize from './customHooks/useScreenResize';
 import useFetchData from './customHooks/useFetchData';
+import {Puff} from 'react-loader-spinner';
 
 const baseUrl = 'https://serveranalysisapi.onrender.com/api';
 const endpoints = [
@@ -21,10 +22,22 @@ function App() {
     const {data, loading} = useFetchData(baseUrl, endpoints);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className='accordion'>
+                <Puff
+                    color="#00BFFF"
+                    height={100}
+                    width={100}
+                />
+                <div>
+                    <p><strong>Please wait,</strong></p>
+                    <p>Initial load may take up to 50 seconds</p>
+                    <p><strong>due to free tier hosting plan.</strong></p>
+                    <p>Thank you for your patience.</p>
+                </div>
+            </div>
+        );
     }
-
-    console.log("Fetched data: ", data); // test
 
     return (
         <Router>
@@ -36,13 +49,13 @@ function App() {
                     <nav className="navbar">
                         <ul className={isOpen ? 'dropdown' : ''}>
                             <li className="home">
-                                <Link to="/">Home</Link>
+                                <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
                             </li>
                             <li>
-                            <Link to="/thesis">Thesis</Link>
+                            <Link to="/thesis" onClick={() => setIsOpen(false)}>Thesis</Link>
                             </li>
                             <li>
-                            <Link to="/about">About</Link>
+                            <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
                             </li>
                         </ul>
                         <ul>  
