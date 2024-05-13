@@ -12,7 +12,7 @@ using ServerAnalysisAPI.Context;
 namespace ServerAnalysisAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240508192858_InitialCreate")]
+    [Migration("20240513141936_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -221,162 +221,6 @@ namespace ServerAnalysisAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ServerAnalysisAPI.Models.Benefit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Advantages")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Beneficiaries")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Comparison")
-                        .HasColumnType("text");
-
-                    b.Property<string>("IndustryInsights")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Purpose")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TopicId");
-
-                    b.ToTable("Benefits");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.BenefitSource", b =>
-                {
-                    b.Property<int>("BenefitId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SourceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("BenefitId", "SourceId");
-
-                    b.HasIndex("SourceId");
-
-                    b.ToTable("BenefitSources");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerBasedApplication", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Approach")
-                        .HasColumnType("text");
-
-                    b.Property<int>("BenefitId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Introduction")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Limitations")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Purpose")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UseCases")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BenefitId");
-
-                    b.ToTable("ServerBasedApplications");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerBasedApplicationSource", b =>
-                {
-                    b.Property<int>("ServerBasedApplicationId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SourceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ServerBasedApplicationId", "SourceId");
-
-                    b.HasIndex("SourceId");
-
-                    b.ToTable("ServerBasedApplicationSources");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerlessFunction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Approach")
-                        .HasColumnType("text");
-
-                    b.Property<int>("BenefitId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Introduction")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Limitations")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Purpose")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UseCases")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BenefitId");
-
-                    b.ToTable("ServerlessFunctions");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerlessFunctionSource", b =>
-                {
-                    b.Property<int>("ServerlessFunctionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SourceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ServerlessFunctionId", "SourceId");
-
-                    b.HasIndex("SourceId");
-
-                    b.ToTable("ServerlessFunctionSources");
-                });
-
             modelBuilder.Entity("ServerAnalysisAPI.Models.Source", b =>
                 {
                     b.Property<int>("Id")
@@ -386,9 +230,7 @@ namespace ServerAnalysisAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Link")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Purpose")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("ReferenceNumber")
@@ -411,13 +253,60 @@ namespace ServerAnalysisAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Advantages")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Approach")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Beneficiaries")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Comparison")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IndustryInsights")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Introduction")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Limitations")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UseCases")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Topics");
+                });
+
+            modelBuilder.Entity("ServerAnalysisAPI.Models.TopicSource", b =>
+                {
+                    b.Property<int>("TopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SourceId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TopicId", "SourceId");
+
+                    b.HasIndex("SourceId");
+
+                    b.ToTable("TopicSources");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -471,122 +360,33 @@ namespace ServerAnalysisAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ServerAnalysisAPI.Models.Benefit", b =>
+            modelBuilder.Entity("ServerAnalysisAPI.Models.TopicSource", b =>
                 {
+                    b.HasOne("ServerAnalysisAPI.Models.Source", "Source")
+                        .WithMany("TopicSources")
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ServerAnalysisAPI.Models.Topic", "Topic")
-                        .WithMany()
+                        .WithMany("TopicSources")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Source");
+
                     b.Navigation("Topic");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.BenefitSource", b =>
-                {
-                    b.HasOne("ServerAnalysisAPI.Models.Benefit", "Benefit")
-                        .WithMany("BenefitSources")
-                        .HasForeignKey("BenefitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServerAnalysisAPI.Models.Source", "Source")
-                        .WithMany("BenefitSources")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Benefit");
-
-                    b.Navigation("Source");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerBasedApplication", b =>
-                {
-                    b.HasOne("ServerAnalysisAPI.Models.Benefit", "Benefit")
-                        .WithMany("ServerBasedApplications")
-                        .HasForeignKey("BenefitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Benefit");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerBasedApplicationSource", b =>
-                {
-                    b.HasOne("ServerAnalysisAPI.Models.ServerBasedApplication", "ServerBasedApplication")
-                        .WithMany("ServerBasedApplicationSources")
-                        .HasForeignKey("ServerBasedApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServerAnalysisAPI.Models.Source", "Source")
-                        .WithMany("ServerBasedApplicationSources")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServerBasedApplication");
-
-                    b.Navigation("Source");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerlessFunction", b =>
-                {
-                    b.HasOne("ServerAnalysisAPI.Models.Benefit", "Benefit")
-                        .WithMany("ServerlessFunctions")
-                        .HasForeignKey("BenefitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Benefit");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerlessFunctionSource", b =>
-                {
-                    b.HasOne("ServerAnalysisAPI.Models.ServerlessFunction", "ServerlessFunction")
-                        .WithMany("ServerlessFunctionSources")
-                        .HasForeignKey("ServerlessFunctionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServerAnalysisAPI.Models.Source", "Source")
-                        .WithMany("ServerlessFunctionSources")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServerlessFunction");
-
-                    b.Navigation("Source");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.Benefit", b =>
-                {
-                    b.Navigation("BenefitSources");
-
-                    b.Navigation("ServerBasedApplications");
-
-                    b.Navigation("ServerlessFunctions");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerBasedApplication", b =>
-                {
-                    b.Navigation("ServerBasedApplicationSources");
-                });
-
-            modelBuilder.Entity("ServerAnalysisAPI.Models.ServerlessFunction", b =>
-                {
-                    b.Navigation("ServerlessFunctionSources");
                 });
 
             modelBuilder.Entity("ServerAnalysisAPI.Models.Source", b =>
                 {
-                    b.Navigation("BenefitSources");
+                    b.Navigation("TopicSources");
+                });
 
-                    b.Navigation("ServerBasedApplicationSources");
-
-                    b.Navigation("ServerlessFunctionSources");
+            modelBuilder.Entity("ServerAnalysisAPI.Models.Topic", b =>
+                {
+                    b.Navigation("TopicSources");
                 });
 #pragma warning restore 612, 618
         }
