@@ -8,7 +8,7 @@ import useScreenResize from './customHooks/useScreenResize';
 import useFetchData from './customHooks/useFetchData';
 import useTransparentOnScroll from './customHooks/useTransparentOnScroll';
 import useClickOutside from './customHooks/useClickOutside';
-import SectionCard from './cards/SectionCard';
+// import SectionCard from './cards/SectionCard';
 import {Puff} from 'react-loader-spinner';
 
 const baseUrl = 'https://serveranalysisapi.onrender.com/api';
