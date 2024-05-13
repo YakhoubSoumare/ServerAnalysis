@@ -4,8 +4,9 @@ import SectionCard from "../cards/SectionCard";
 const Home = ({ data }) => {
     const [isOpen, setIsOpen] = useState(true);
 
-    let definitions = getDefinitions(data, ['serverbasedapplications', 'serverlessfunctions']);
-    console.log(definitions);
+    console.log(data);
+    const handled_data = handleData(data);
+    // console.log(handled_data.comparisons);
 
     return (
         <>
@@ -31,40 +32,54 @@ const Home = ({ data }) => {
                         <li><a href="#use-cases">Use Cases</a></li>
                         <li><a href="#advantages">Advantages</a></li>
                         <li><a href="#limitations">Limitations</a></li>
-                        <li><a href="#comparison">Comparison</a></li>
+                        <li><a href="#comparisons">Comparison</a></li>
+                        <li><a href="#industry-insights">Industry Insights</a></li>
                         <li><a href="#beneficiaries">Beneficiaries</a></li>
                     </ul> 
                 </aside>
                 <div className="page-content">
-                    <section id="introduction">
-                        <h2>Introduction</h2>
-                        <SectionCard/>
-                    </section>
-                    <section id="approach">
-                        <h2>Approach</h2>
-                    </section>
-                    <section id="use-cases">
-                        <h2>Use Cases</h2>
-                    </section>
-                    <section id="advantages">
-                        <h2>Advantages</h2>
-                    </section>
-                    <section id="limitations">
-                        <h2>Limitations</h2>
-                    </section>
-                    <section id="comparison">
-                        <h2>Comparison</h2>
-                    </section>
-                    <section id="beneficiaries">
-                        <h2>Beneficiaries</h2>
-                    </section>
-
-                    {/* {data.map(([endpoint, data], index) => (
-                        <div key={index}>
-                            <h2>{endpoint}</h2>
-                            <pre>{JSON.stringify(data, null, 2)}</pre>
-                        </div>
-                    ))} */}
+                    <div className="display-data">
+                        <div className="sub-heading">Introduction</div>
+                        <section id="introduction">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.introductions[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.introductions[1]}/>
+                        </section>
+                        <div className="sub-heading">Approach</div>
+                        <section id="approach">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.approaches[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.approaches[1]}/>
+                        </section>
+                        <div className="sub-heading">Use Cases</div>
+                        <section id="use-cases">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.useCases[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.useCases[1]}/>
+                        </section>
+                        <div className="sub-heading">Advantages</div>
+                        <section id="advantages">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.advantages[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.advantages[1]}/>
+                        </section>
+                        <div className="sub-heading">Limitations</div>
+                        <section id="limitations">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.limitations[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.limitations[1]}/>
+                        </section>
+                        <div className="sub-heading">Comparison</div>
+                        <section id="comparisons">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.comparisons[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.comparisons[1]}/>
+                        </section>
+                        <div className="sub-heading">Industry Insights</div>
+                        <section id="industry-insights">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.industryInsights[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.industryInsights[1]}/>
+                        </section>
+                        <div className="sub-heading">Beneficiaries</div>
+                        <section id="beneficiaries">
+                            <SectionCard title={handled_data.titles[0]} text={handled_data.beneficiaries[0]}/>
+                            <SectionCard title={handled_data.titles[1]} text={handled_data.beneficiaries[1]}/>
+                        </section>
+                    </div>
                 </div>
             </div>
         </>
@@ -73,30 +88,39 @@ const Home = ({ data }) => {
 
 export default Home;
 
-function getDefinitions(data, topics){    
-    const serverBasedApplications = data.find(item => item[0] === topics[0]);
-    const serverlessFunctions = data.find(item => item[0] === topics[1]);
+function handleData(data){    
+    
+    const topicsData = data.find(item => item[0] === 'topics')[1];
+    const sourcesData = data.find(item => item[0] === 'sources')[1];
+    
+    const ids = topicsData.map(item => item.id);
+    const titles = topicsData.map(item => item.title);
+    const introductions = topicsData.map(item => item.introduction);
+    const approaches = topicsData.map(item => item.approach);
+    const useCases = topicsData.map(item => item.useCases);
+    const limitations = topicsData.map(item => item.limitations);
+    const advantages = topicsData.map(item => item.advantages);
+    const comparisons = topicsData.map(item => item.comparison);
+    const industryInsights = topicsData.map(item => item.industryInsights);
+    const beneficiaries = topicsData.map(item => item.beneficiaries);
 
-    if (serverBasedApplications && serverlessFunctions) {
-        return {
-            serverBasedApplications: {
-                approach: serverBasedApplications[1][0].approach,
-                benefitId: serverBasedApplications[1][0].benefitId,
-                id: serverBasedApplications[1][0].id,
-                introduction: serverBasedApplications[1][0].introduction,
-                limitations: serverBasedApplications[1][0].limitations,
-                useCases: serverBasedApplications[1][0].useCases,
-            },
-            serverlessFunctions: {
-                approach: serverlessFunctions[1][0].approach,
-                benefitId: serverlessFunctions[1][0].benefitId,
-                id: serverlessFunctions[1][0].id,
-                introduction: serverlessFunctions[1][0].introduction,
-                limitations: serverlessFunctions[1][0].limitations,
-                useCases: serverlessFunctions[1][0].useCases,
-            }
-        };
-    }
+    const sources_titles = sourcesData.map(item => item.title);
+    const sources_links = sourcesData.map(item => item.link);
+    const sources_referenceNumbers = sourcesData.map(item => item.referenceNumber);
 
-    return;
+    return {
+        ids,
+        titles,
+        introductions,
+        approaches,
+        useCases,
+        limitations,
+        advantages,
+        comparisons,
+        industryInsights,
+        beneficiaries,
+        sources_titles,
+        sources_links,
+        sources_referenceNumbers
+    };
 }
