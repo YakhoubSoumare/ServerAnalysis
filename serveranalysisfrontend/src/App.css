@@ -144,11 +144,11 @@ pre {
   flex-direction: row;
   margin: 0;
   max-width: 100%;
-  background-color: blue;
+  background-color: yellow;
 }
 
 .page-body .page-content {
-  flex: 3;
+  flex: 4;
   border: 2px solid black;
   background-color: red;
 }
@@ -183,6 +183,39 @@ pre {
   font-weight: bold;
   display: block;
   text-align: start;
+}
+
+.dispay-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin: 10px;
+  max-width: 1200px;
+}
+
+/* .dispay-data .sub-heading {
+  
+} */
+
+.dispay-data section {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+}
+
+.card {
+  flex-grow: 1;
+  margin: 10px;
+}
+
+@media (max-width: 800px){
+  section {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media (max-width: 600px){
