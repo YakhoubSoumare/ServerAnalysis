@@ -110,13 +110,8 @@ void ConfigureAutomapper(IServiceCollection services)
 	var config = new MapperConfiguration(cfg =>
 	{
 		cfg.CreateMap<Source, SourceDto>().ReverseMap();
-		cfg.CreateMap<Benefit, BenefitDto>().ReverseMap();
 		cfg.CreateMap<Topic, TopicDto>().ReverseMap();
-		cfg.CreateMap<ServerBasedApplication, ServerBasedApplicationDto>().ReverseMap();
-		cfg.CreateMap<ServerlessFunction, ServerlessFunctionDto>().ReverseMap();
-		cfg.CreateMap<ServerBasedApplicationSource, ServerBasedApplicationSourceDto>().ReverseMap();
-		cfg.CreateMap<ServerlessFunctionSource, ServerlessFunctionSourceDto>().ReverseMap();
-		cfg.CreateMap<BenefitSource, BenefitSourceDto>().ReverseMap();
+		cfg.CreateMap<TopicSource, TopicSourceDto>().ReverseMap();
 	});
 	var mapper = config.CreateMapper();
 
