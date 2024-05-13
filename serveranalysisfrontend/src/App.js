@@ -13,10 +13,7 @@ import {Puff} from 'react-loader-spinner';
 
 const baseUrl = 'https://serveranalysisapi.onrender.com/api';
 const endpoints = [
-    'topics',
-    'serverbasedapplications', 
-    'serverlessfunctions',  
-    'benefits', 
+    'topics', 
     'sources'
 ];
 
