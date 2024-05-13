@@ -58,8 +58,7 @@ namespace ServerAnalysisAPI.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    Link = table.Column<string>(type: "text", nullable: true),
-                    Purpose = table.Column<string>(type: "text", nullable: true),
+                    Link = table.Column<string>(type: "text", nullable: false),
                     ReferenceNumber = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -73,7 +72,15 @@ namespace ServerAnalysisAPI.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false)
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Introduction = table.Column<string>(type: "text", nullable: false),
+                    Approach = table.Column<string>(type: "text", nullable: false),
+                    UseCases = table.Column<string>(type: "text", nullable: false),
+                    Limitations = table.Column<string>(type: "text", nullable: false),
+                    Advantages = table.Column<string>(type: "text", nullable: false),
+                    Comparison = table.Column<string>(type: "text", nullable: false),
+                    IndustryInsights = table.Column<string>(type: "text", nullable: false),
+                    Beneficiaries = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,148 +194,25 @@ namespace ServerAnalysisAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Benefits",
+                name: "TopicSources",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Advantages = table.Column<string>(type: "text", nullable: true),
-                    Comparison = table.Column<string>(type: "text", nullable: true),
-                    IndustryInsights = table.Column<string>(type: "text", nullable: true),
-                    Beneficiaries = table.Column<string>(type: "text", nullable: true),
-                    Purpose = table.Column<string>(type: "text", nullable: true),
-                    TopicId = table.Column<int>(type: "integer", nullable: false)
+                    TopicId = table.Column<int>(type: "integer", nullable: false),
+                    SourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Benefits", x => x.Id);
+                    table.PrimaryKey("PK_TopicSources", x => new { x.TopicId, x.SourceId });
                     table.ForeignKey(
-                        name: "FK_Benefits_Topics_TopicId",
+                        name: "FK_TopicSources_Sources_SourceId",
+                        column: x => x.SourceId,
+                        principalTable: "Sources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TopicSources_Topics_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BenefitSources",
-                columns: table => new
-                {
-                    BenefitId = table.Column<int>(type: "integer", nullable: false),
-                    SourceId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BenefitSources", x => new { x.BenefitId, x.SourceId });
-                    table.ForeignKey(
-                        name: "FK_BenefitSources_Benefits_BenefitId",
-                        column: x => x.BenefitId,
-                        principalTable: "Benefits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BenefitSources_Sources_SourceId",
-                        column: x => x.SourceId,
-                        principalTable: "Sources",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServerBasedApplications",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Introduction = table.Column<string>(type: "text", nullable: true),
-                    Approach = table.Column<string>(type: "text", nullable: true),
-                    UseCases = table.Column<string>(type: "text", nullable: true),
-                    Limitations = table.Column<string>(type: "text", nullable: true),
-                    Purpose = table.Column<string>(type: "text", nullable: true),
-                    BenefitId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServerBasedApplications", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServerBasedApplications_Benefits_BenefitId",
-                        column: x => x.BenefitId,
-                        principalTable: "Benefits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServerlessFunctions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Introduction = table.Column<string>(type: "text", nullable: true),
-                    Approach = table.Column<string>(type: "text", nullable: true),
-                    UseCases = table.Column<string>(type: "text", nullable: true),
-                    Limitations = table.Column<string>(type: "text", nullable: true),
-                    Purpose = table.Column<string>(type: "text", nullable: true),
-                    BenefitId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServerlessFunctions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServerlessFunctions_Benefits_BenefitId",
-                        column: x => x.BenefitId,
-                        principalTable: "Benefits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServerBasedApplicationSources",
-                columns: table => new
-                {
-                    ServerBasedApplicationId = table.Column<int>(type: "integer", nullable: false),
-                    SourceId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServerBasedApplicationSources", x => new { x.ServerBasedApplicationId, x.SourceId });
-                    table.ForeignKey(
-                        name: "FK_ServerBasedApplicationSources_ServerBasedApplications_Serve~",
-                        column: x => x.ServerBasedApplicationId,
-                        principalTable: "ServerBasedApplications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ServerBasedApplicationSources_Sources_SourceId",
-                        column: x => x.SourceId,
-                        principalTable: "Sources",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServerlessFunctionSources",
-                columns: table => new
-                {
-                    ServerlessFunctionId = table.Column<int>(type: "integer", nullable: false),
-                    SourceId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServerlessFunctionSources", x => new { x.ServerlessFunctionId, x.SourceId });
-                    table.ForeignKey(
-                        name: "FK_ServerlessFunctionSources_ServerlessFunctions_ServerlessFun~",
-                        column: x => x.ServerlessFunctionId,
-                        principalTable: "ServerlessFunctions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ServerlessFunctionSources_Sources_SourceId",
-                        column: x => x.SourceId,
-                        principalTable: "Sources",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -371,33 +255,8 @@ namespace ServerAnalysisAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Benefits_TopicId",
-                table: "Benefits",
-                column: "TopicId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BenefitSources_SourceId",
-                table: "BenefitSources",
-                column: "SourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServerBasedApplications_BenefitId",
-                table: "ServerBasedApplications",
-                column: "BenefitId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServerBasedApplicationSources_SourceId",
-                table: "ServerBasedApplicationSources",
-                column: "SourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServerlessFunctions_BenefitId",
-                table: "ServerlessFunctions",
-                column: "BenefitId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServerlessFunctionSources_SourceId",
-                table: "ServerlessFunctionSources",
+                name: "IX_TopicSources_SourceId",
+                table: "TopicSources",
                 column: "SourceId");
         }
 
@@ -420,13 +279,7 @@ namespace ServerAnalysisAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BenefitSources");
-
-            migrationBuilder.DropTable(
-                name: "ServerBasedApplicationSources");
-
-            migrationBuilder.DropTable(
-                name: "ServerlessFunctionSources");
+                name: "TopicSources");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -435,16 +288,7 @@ namespace ServerAnalysisAPI.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "ServerBasedApplications");
-
-            migrationBuilder.DropTable(
-                name: "ServerlessFunctions");
-
-            migrationBuilder.DropTable(
                 name: "Sources");
-
-            migrationBuilder.DropTable(
-                name: "Benefits");
 
             migrationBuilder.DropTable(
                 name: "Topics");
