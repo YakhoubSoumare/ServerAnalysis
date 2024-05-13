@@ -1,9 +1,10 @@
 import React from "react";
+import bad from "../images/bad.jpg";
 
 export default function SectionCard({ title, text }) {
   return (
     <div className="card" style={{width: '18rem'}}>
-        <img />
+        <img src={bad} alt="Crazy Server" />
         <h5 className="card-title">{title}</h5>
         <div className="card-body">
             <p className="card-text">{text}</p>
