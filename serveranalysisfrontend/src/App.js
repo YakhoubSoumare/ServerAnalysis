@@ -8,6 +8,7 @@ import useScreenResize from './customHooks/useScreenResize';
 import useFetchData from './customHooks/useFetchData';
 import useTransparentOnScroll from './customHooks/useTransparentOnScroll';
 import useClickOutside from './customHooks/useClickOutside';
+import SectionCard from './cards/SectionCard';
 import {Puff} from 'react-loader-spinner';
 
 const baseUrl = 'https://serveranalysisapi.onrender.com/api';
@@ -48,7 +49,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <div className="navbar" ref={ref}>
+                <nav className="navbar" ref={ref}>
                     <ul className={isOpen ? 'dropdown' : ''}>
                         <Link to="/" onClick={() => setIsOpen(false)}>
                             <li className="home">
@@ -69,7 +70,7 @@ function App() {
                     <ul>  
                         <li className="hamburger" onClick={() => {setIsOpen(!isOpen)}}>☰</li>
                     </ul>
-                </div>
+                </nav>
                 <div className="app-body">
                     <Routes>
                         <Route path="/" element={<Home data={data} />} />
@@ -77,9 +78,9 @@ function App() {
                         <Route path="/about" element={<About />} />
                     </Routes>
                 </div>
-                <div className="app-footer">
+                <footer className="app-footer">
                     <p>© 2024 - Developed by Yakhoub Soumare, IT-Högskolan & Meta Bytes</p>
-                </div>
+                </footer>
             </div>
         </Router>
     );
