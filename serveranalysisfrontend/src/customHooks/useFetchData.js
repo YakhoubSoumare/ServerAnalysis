@@ -9,6 +9,7 @@ function useFetchData(baseUrl, endpoints) {
             let results = [];
             try {
                 setLoading(true);
+                console.log('Fetching data...');
                 results = await Promise.all(
                     endpoints.map(async endpoint => {
                         const response = await fetch(`${baseUrl}/${endpoint}`);
