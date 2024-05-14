@@ -14,6 +14,10 @@ pre {
   text-align: center;
 }
 
+.hide {
+  display: none;
+}
+
 .App { 
   text-align: center;
   display: flex;
@@ -72,9 +76,58 @@ pre {
   margin: 0;
 }
 
-.app-body{
+.main-body {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.sidebar-container {
+  flex: 1;
+  border: 2px solid green;
+  background-color: yellowgreen;
+  max-width: 400px;
+  height: 100vh;
+}
+
+.app-body {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+}
+
+.sidebar-container {
+  position: fixed;
+  overflow: auto;
+  height: 100%;
+}
+
+.sidebar-container.hidden{
+  max-width: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  text-align: start;
+  padding: 10px;
+}
+
+.sidebar-toggler {
+  text-align: right;
+}
+
+
+.app-body {
   flex-grow: 1;
-  z-index: 0;
+  overflow-y: auto;
 }
 
 .app-footer {
@@ -153,62 +206,45 @@ pre {
   background-color: red;
 }
 
-.page-body .sidebar {
-  flex: 1;
-  border: 2px solid green;
+
+.page-content .sub-heading, section {
+  max-width: 1400px;
+  margin: auto;
 }
 
-.page-body .sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.page-body .sidebar ul li {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  display: block;
-  text-align: start;
-}
-.sidebar ul li:not(.close-curtain) {
-  padding: 10px;
-}
-
-.hide {
-  display: none;
-}
-
-.open-curtain{
-  font-size: 20px;
-  font-weight: bold;
-  display: block;
-  text-align: start;
-}
-
-.dispay-data {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  margin: 10px;
-  max-width: 1200px;
-}
-
-/* .dispay-data .sub-heading {
-  
-} */
-
-.dispay-data section {
+.page-content .sub-heading {
+  text-align: left;
   padding: 20px;
+}
+
+section {
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: stretch;
   justify-content: center;
 }
 
 .card {
-  flex-grow: 1;
-  margin: 10px;
+  flex: 0 0 calc(50% - 20px);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 5px;
+  border: 2px solid blue;
+}
+
+.card .card-body, .card .card-footer {
+  text-align: left;
+}
+
+.card-footer {
+  margin-top: auto;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid black;
+  width: 100%;
 }
 
 @media (max-width: 800px){
@@ -231,7 +267,7 @@ pre {
     display: block;
   }
 
-  .page-body .sidebar {
+  .sidebar-container {
     display: none;
   }
 
@@ -243,4 +279,3 @@ pre {
     display: block;
   }
 }
-
