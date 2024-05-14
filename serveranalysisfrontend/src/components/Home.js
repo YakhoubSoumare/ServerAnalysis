@@ -1,4 +1,5 @@
 import SectionCard from "../cards/SectionCard";
+// import bad from "../images/bad.jpg";
 
 const Home = ({ data }) => {
 
@@ -11,7 +12,7 @@ const Home = ({ data }) => {
                     <h1 className="page-title">Serververless Functions vs. Server-based Applications</h1>
                     <div className="sub-heading"><h2>Introduction</h2></div>
                     <section id="introduction">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.introductions[0]}/>
+                        <SectionCard /*image={bad}*/ title={handled_data.titles[0]} text={handled_data.introductions[0]}/>
                         <SectionCard title={handled_data.titles[1]} text={handled_data.introductions[1]}/>
                     </section>
                     <div className="sub-heading"><h2>Approach</h2></div>

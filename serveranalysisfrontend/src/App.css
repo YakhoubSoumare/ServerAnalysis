@@ -85,18 +85,9 @@ pre {
 .sidebar-container {
   flex: 1;
   border: 2px solid green;
-  background-color: yellowgreen;
+  background-color: rgb(154, 205, 50, 0.7);
   max-width: 400px;
   height: 100vh;
-}
-
-.app-body {
-  position: fixed;
-  overflow: hidden;
-  width: 100%;
-}
-
-.sidebar-container {
   position: fixed;
   overflow: auto;
   height: 100%;
@@ -239,6 +230,13 @@ section {
 
 .card-footer {
   margin-top: auto;
+}
+
+.section-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  padding: 10px;
 }
 
 hr {
