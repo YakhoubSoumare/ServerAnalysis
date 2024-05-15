@@ -26,14 +26,14 @@ function useScreenResize(initialState) {
       const newHeight = `calc(100vh - ${navbarHeight + footerHeight}px)`;
 
       mainElement.style.height = newHeight;
-      sidebarElement.style.height = newHeight;
-      sidebarElement.style.top = `${navbarHeight}px`;
-      sidebarElement.style.bottom = `${footerHeight}px`;
+      // sidebarElement.style.height = newHeight;
+      // sidebarElement.style.top = `${navbarHeight}px`;
+      // sidebarElement.style.bottom = `${footerHeight}px`;
 
-      // Add these lines
-      sidebarElement.style.position = 'fixed'; // or 'absolute'
-      sidebarElement.style.overflow = 'auto'; // or 'scroll'
-      mainElement.style.overflow = 'hidden'; // prevent outer scroll
+      // // Add these lines
+      // sidebarElement.style.position = 'fixed'; // or 'absolute'
+      // sidebarElement.style.overflow = 'auto'; // or 'scroll'
+      // mainElement.style.overflow = 'hidden'; // prevent outer scroll
     };
 
     setElementStyles();

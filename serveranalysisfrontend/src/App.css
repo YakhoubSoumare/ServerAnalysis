@@ -79,7 +79,7 @@ pre {
 .main-body {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .sidebar-container {
@@ -89,7 +89,7 @@ pre {
   max-width: 400px;
   height: 100vh;
   position: fixed;
-  overflow: auto;
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -115,10 +115,10 @@ pre {
   text-align: right;
 }
 
-
 .app-body {
   flex-grow: 1;
   overflow-y: auto;
+  /* height: 100vh; */
 }
 
 .app-footer {

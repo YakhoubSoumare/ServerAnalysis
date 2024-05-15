@@ -66,6 +66,7 @@ function App() {
 export default App;
 
 function MainBody({ data }) {
+    console.log(data);
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
   
