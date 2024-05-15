@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useScreenResize(initialState, loading) {
+function useScreenResize(initialState, loading, currentRoute) {
   const [isOpen, setIsOpen] = useState(initialState);
 
   useEffect(() => {
@@ -28,10 +28,18 @@ function useScreenResize(initialState, loading) {
 
       mainElement.style.minHeight = newHeight;
       mainElement.style.paddingBottom = `${footerHeight}px`;
+      
 
-      if (sidebarElement && getComputedStyle(sidebarElement).display !== 'none') {
-        const sidebarWidth = sidebarElement.offsetWidth;
-        bodyContent.style.paddingLeft = `${sidebarWidth}px`;
+      if (currentRoute === '/') {
+        if (sidebarElement && getComputedStyle(sidebarElement).display !== 'none') {
+          const sidebarWidth = sidebarElement.offsetWidth;
+          bodyContent.style.paddingLeft = `${sidebarWidth}px`;
+
+          sidebarElement.style.maxHeight = `calc(100vh - ${navbarHeight + footerHeight}px)`;
+          sidebarElement.style.overflow = 'auto';
+        } else {
+          bodyContent.style.paddingLeft = '0px';
+        }
       } else {
         bodyContent.style.paddingLeft = '0px';
       }
@@ -64,7 +72,7 @@ function useScreenResize(initialState, loading) {
         sidebarObserver.disconnect();
       }
     };
-  }, [loading]);
+  }, [loading, currentRoute]);
 
   return [isOpen, setIsOpen];
 }

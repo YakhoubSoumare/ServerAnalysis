@@ -1,18 +1,17 @@
-import {React, useRef, useState} from 'react';
+import {React, useRef, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Link, Routes, Route, useLocation } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
-import Thesis from './components/Thesis';
 import About from './components/About';
 import useScreenResize from './customHooks/useScreenResize';
 import useFetchData from './customHooks/useFetchData';
-import useTransparentOnScroll from './customHooks/useTransparentOnScroll';
 import useClickOutside from './customHooks/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLong, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import {Puff} from 'react-loader-spinner';
 
-const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+// const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+const baseUrl = 'http://localhost:8000/api'; // local environment testing
 const endpoints =[
     'topics', 
     'sources'
@@ -21,30 +20,24 @@ const endpoints =[
 function App() {
     const {data, loading} = useFetchData(baseUrl, endpoints);
 
-    useTransparentOnScroll();
     const ref = useRef();
     useClickOutside(ref, () => setIsOpen(false));
-    const [isOpen, setIsOpen] = useScreenResize(false, loading);
+    const [currentRoute, setCurrentRoute] = useState('/');
+    const [isOpen, setIsOpen] = useScreenResize(false, loading, currentRoute);
+    
 
     if (loading) {
        return displayAccordion();
     }
 
-    
-
     return (
         <Router>
             <div className="App">
-                <nav className="navbar" ref={ref}>
+                <nav className="navbar transparent" ref={ref}>
                     <ul className={isOpen ? 'dropdown' : ''}>
                         <Link to="/" onClick={() => setIsOpen(false)}>
                             <li className="home">
                                 Home
-                            </li>
-                        </Link>
-                        <Link to="/thesis" onClick={() => setIsOpen(false)}>
-                            <li>
-                                Thesis
                             </li>
                         </Link>
                         <Link to="/about" onClick={() => setIsOpen(false)}>
@@ -57,8 +50,8 @@ function App() {
                         <li className="hamburger" onClick={() => {setIsOpen(!isOpen)}}>☰</li>
                     </ul>
                 </nav>
-                <MainBody data={data}/>
-                <footer className="app-footer">
+                <MainBody data={data} currentRoute={currentRoute} setCurrentRoute={setCurrentRoute}/>
+                <footer className="app-footer transparent">
                     <p>© 2024 - Developed by Yakhoub Soumare, IT-Högskolan & Meta Bytes</p>
                 </footer>
             </div>
@@ -67,16 +60,31 @@ function App() {
 }
 export default App;
 
-function MainBody({ data }) {
-    console.log(data);
+function MainBody({ data, currentRoute, setCurrentRoute  }) {
+
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    useEffect(() => {
+        setCurrentRoute(location.pathname);
+    }, [location, setCurrentRoute]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setSidebarOpen(window.innerWidth >= 600);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
   
     return (
       <div className='main-body'> 
-        {location.pathname === '/' &&
-          <aside className= {sidebarOpen? 'sidebar-container'
-          : 'sidebar-container hidden'}>
+        {currentRoute === '/' &&
+          <aside className= {sidebarOpen? 'sidebar-container transparent' : 'sidebar-container hidden'}>
             <div className="sidebar-toggler" onClick={() => setSidebarOpen(!sidebarOpen)}>
                 {sidebarOpen ?
                 <FontAwesomeIcon icon={faLeftLong} /> 
@@ -94,7 +102,6 @@ function MainBody({ data }) {
         <div className="app-body">
           <Routes>
             <Route path="/" element={<Home data={data} />} />
-            <Route path="/thesis" element={<Thesis />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </div>
