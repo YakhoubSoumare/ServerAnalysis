@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useScreenResize(initialState) {
+function useScreenResize(initialState, loading) {
   const [isOpen, setIsOpen] = useState(initialState);
 
   useEffect(() => {
@@ -15,8 +15,9 @@ function useScreenResize(initialState) {
       const footerElement = document.querySelector('.app-footer');
       const mainElement = document.querySelector('.main-body');
       const sidebarElement = document.querySelector('.sidebar-container');
+      const bodyContent = document.querySelector('.app-body');
 
-      if (!navbarElement || !footerElement || !mainElement || !sidebarElement) {
+      if (!navbarElement || !footerElement || !mainElement) {
         return;
       }
 
@@ -25,25 +26,45 @@ function useScreenResize(initialState) {
 
       const newHeight = `calc(100vh - ${navbarHeight + footerHeight}px)`;
 
-      mainElement.style.height = newHeight;
-      // sidebarElement.style.height = newHeight;
-      // sidebarElement.style.top = `${navbarHeight}px`;
-      // sidebarElement.style.bottom = `${footerHeight}px`;
+      mainElement.style.minHeight = newHeight;
+      mainElement.style.paddingBottom = `${footerHeight}px`;
 
-      // // Add these lines
-      // sidebarElement.style.position = 'fixed'; // or 'absolute'
-      // sidebarElement.style.overflow = 'auto'; // or 'scroll'
-      // mainElement.style.overflow = 'hidden'; // prevent outer scroll
+      if (sidebarElement && getComputedStyle(sidebarElement).display !== 'none') {
+        const sidebarWidth = sidebarElement.offsetWidth;
+        bodyContent.style.paddingLeft = `${sidebarWidth}px`;
+      } else {
+        bodyContent.style.paddingLeft = '0px';
+      }
     };
 
-    setElementStyles();
+    if (!loading) {
+      setElementStyles();
+    }
+
+    const footerObserver = new MutationObserver(setElementStyles);
+    const footerElement = document.querySelector('.app-footer');
+    if (footerElement) {
+      footerObserver.observe(footerElement, { attributes: true, childList: true, subtree: true });
+    }
+
+    const sidebarObserver = new MutationObserver(setElementStyles);
+    const sidebarElement = document.querySelector('.sidebar-container');
+    if (sidebarElement) {
+      sidebarObserver.observe(sidebarElement, { attributes: true, childList: true, subtree: true });
+    }
 
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (footerElement) {
+        footerObserver.disconnect();
+      }
+      if (sidebarElement) {
+        sidebarObserver.disconnect();
+      }
     };
-  }, []);
+  }, [loading]);
 
   return [isOpen, setIsOpen];
 }
