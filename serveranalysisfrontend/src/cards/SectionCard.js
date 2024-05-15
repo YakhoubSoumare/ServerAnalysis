@@ -1,7 +1,6 @@
 import React from "react";
-// import bad from "../images/bad.jpg";
 
-export default function SectionCard({ image, title, text }) {
+export default function SectionCard({ image, title, text, sources }) {
   return (
     <div className="card">
       <img src={image} alt={title} className="card-img-top"/>
@@ -13,8 +12,13 @@ export default function SectionCard({ image, title, text }) {
       <div className="card-footer">
         <hr/>
         <small className="text-muted">
-          <a href="https://www.lipsum.com/" target="_blank" rel="noopener noreferrer" className="card-link">Card link</a>
-          <a href="https://www.lipsum.com/" target="_blank" rel="noopener noreferrer" className="card-link">Another link</a>
+          {sources.map((source, index) => (
+            <p key={index}>
+                <a href={source.link} target="_blank" rel="noopener noreferrer">
+                    {source.title}
+                </a>
+            </p>
+          ))}
         </small>
       </div>
   </div>

@@ -25,6 +25,7 @@ function useFetchData(baseUrl, endpoints) {
             } finally {
                 setData(results);
                 setLoading(false);
+                console.log('Fetching data complete!');
             }
         };
 
