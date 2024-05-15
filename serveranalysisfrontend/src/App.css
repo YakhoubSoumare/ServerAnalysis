@@ -1,3 +1,4 @@
+/* ====== GLOBAL STYLES ====== */
 * {
   box-sizing: border-box;
 }
@@ -18,40 +19,12 @@ pre {
   display: none;
 }
 
-.App { 
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0px;
-  background-color: #FEFCFF;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* ====== EXTRA STYLES ====== */
 .accordion {
   display: flex;
   flex-direction: column;
@@ -64,6 +37,24 @@ pre {
   background-color: rgba(40, 44, 52, 0.9) !important;
 }
 
+
+/* ====== CONTAINER STYLES ====== */
+.App { 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0px;
+  background-color: #FEFCFF;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+/* ====== NAVBAR STYLES ====== */
 .navbar {
   top: 0; 
   border: 2px solid blue;
@@ -74,63 +65,6 @@ pre {
   color: white;
   justify-content: space-between;
   margin: 0;
-}
-
-.main-body {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-}
-
-.sidebar-container {
-  flex: 1;
-  border: 2px solid green;
-  background-color: rgb(154, 205, 50, 0.7);
-  max-width: 400px;
-  height: 100vh;
-  position: fixed;
-  overflow: auto;
-  height: 100%;
-}
-
-.sidebar-container.hidden{
-  max-width: 20px;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  display: block;
-  text-align: start;
-  padding: 10px;
-}
-
-.sidebar-toggler {
-  text-align: right;
-}
-
-
-.app-body {
-  flex-grow: 1;
-  overflow-y: auto;
-}
-
-.app-footer {
-  position: sticky;
-  background-color: #282c34;
-  color: white;
-  width: 100%;
-  bottom: 0;
-  border: 2px solid blue;
-  padding: 0 20px;
-  margin: 0;
-  z-index: 1;
 }
 
 .navbar ul {
@@ -176,6 +110,70 @@ pre {
   text-decoration: none;
 }
 
+
+/* ====== BODY STYLES ====== */ 
+
+/* (Has a custom hook resposible for setting the height)*/
+
+.main-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar-container {
+  flex: 1;
+  border: 2px solid green;
+  background-color: rgb(154, 205, 50, 0.7);
+  max-width: 400px;
+  height: 100vh;
+  position: fixed;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.sidebar-container.hidden{
+  max-width: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  text-align: start;
+  padding: 10px;
+}
+
+.sidebar-toggler {
+  text-align: right;
+}
+
+.app-body {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+
+/* ====== FOOTER STYLES ====== */
+.app-footer {
+  position: fixed;
+  background-color: #282c34;
+  color: white;
+  width: 100%;
+  bottom: 0;
+  border: 2px solid blue;
+  padding: 0 20px;
+  margin: 0;
+  z-index: 1;
+}
+
+
+/* ====== PAGE STYLES ====== */
 .page-title {
   font-size: 2em;
   padding: 20px;
@@ -215,6 +213,8 @@ section {
   justify-content: center;
 }
 
+/* ====== CARD STYLES ====== */
+
 .card {
   flex: 0 0 calc(50% - 20px);
   display: flex;
@@ -244,6 +244,8 @@ hr {
   border-top: 1px solid black;
   width: 100%;
 }
+
+/* ====== MEDIA QUERIES ====== */
 
 @media (max-width: 800px){
   section {

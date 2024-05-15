@@ -9,26 +9,29 @@ import useFetchData from './customHooks/useFetchData';
 import useTransparentOnScroll from './customHooks/useTransparentOnScroll';
 import useClickOutside from './customHooks/useClickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPersonBooth } from '@fortawesome/free-solid-svg-icons';
+import { faRightLong, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import {Puff} from 'react-loader-spinner';
 
-const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+// const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+const baseUrl = 'http://localhost:8000/api'; // test local environment
 const endpoints =[
     'topics', 
     'sources'
 ];
 
 function App() {
-    const [isOpen, setIsOpen] = useScreenResize(false);
     const {data, loading} = useFetchData(baseUrl, endpoints);
 
     useTransparentOnScroll();
     const ref = useRef();
     useClickOutside(ref, () => setIsOpen(false));
+    const [isOpen, setIsOpen] = useScreenResize(false, loading);
 
     if (loading) {
        return displayAccordion();
     }
+
+    
 
     return (
         <Router>
@@ -56,6 +59,7 @@ function App() {
                     </ul>
                 </nav>
                 <MainBody data={data}/>
+                {/* <div class="spacer"></div> */}
                 <footer className="app-footer">
                     <p>© 2024 - Developed by Yakhoub Soumare, IT-Högskolan & Meta Bytes</p>
                 </footer>
@@ -66,8 +70,9 @@ function App() {
 export default App;
 
 function MainBody({ data }) {
+    console.log(data);
     const location = useLocation();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
   
     return (
       <div className='main-body'> 
@@ -75,7 +80,11 @@ function MainBody({ data }) {
           <aside className= {sidebarOpen? 'sidebar-container'
           : 'sidebar-container hidden'}>
             <div className="sidebar-toggler" onClick={() => setSidebarOpen(!sidebarOpen)}>
-              <FontAwesomeIcon icon={faPersonBooth} />
+                {sidebarOpen ?
+                <FontAwesomeIcon icon={faLeftLong} /> 
+                :
+                <FontAwesomeIcon icon={faRightLong} />
+                }
             </div>
             <div className={sidebarOpen ? 'sidebar' : 'sidebar hide'}>
               <ul>
