@@ -12,8 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLong, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import {Puff} from 'react-loader-spinner';
 
-// const baseUrl = 'https://serveranalysisapi.onrender.com/api';
-const baseUrl = 'http://localhost:8000/api'; // test local environment
+const baseUrl = 'https://serveranalysisapi.onrender.com/api';
 const endpoints =[
     'topics', 
     'sources'
@@ -59,7 +58,6 @@ function App() {
                     </ul>
                 </nav>
                 <MainBody data={data}/>
-                {/* <div class="spacer"></div> */}
                 <footer className="app-footer">
                     <p>© 2024 - Developed by Yakhoub Soumare, IT-Högskolan & Meta Bytes</p>
                 </footer>
