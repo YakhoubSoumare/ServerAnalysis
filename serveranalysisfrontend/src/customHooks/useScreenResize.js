@@ -27,7 +27,7 @@ function useScreenResize(initialState, loading, currentRoute) {
       const newHeight = `calc(100vh - ${navbarHeight + footerHeight}px)`;
 
       mainElement.style.minHeight = newHeight;
-      mainElement.style.paddingBottom = `${footerHeight}px`;
+      mainElement.style.paddingBottom = `${footerHeight + 50}px`;
       
 
       if (currentRoute === '/') {
