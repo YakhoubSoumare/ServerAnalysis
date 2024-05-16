@@ -21,7 +21,8 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 
 const endpoints = [
   'topics', 
-  'sources'
+  'sources',
+  'images'
 ];
 
 function App() {

@@ -1,56 +1,23 @@
 import SectionCard from "../cards/SectionCard";
-// import * as serverbasedImages from "../images/serverbased";
-// import * as serverlessImages from "../images/serverless";
 
 const Home = ({ data }) => {
 
     const handled_data = handleData(data);
+    console.log(handled_data);
 
     return (
         <>
             <div className="page-body">
                 <div className="page-content">
                     <h1 className="page-title">Serververless Functions vs. Server-based Applications</h1>
-                    <div className="sub-heading"><h2>Introduction</h2></div>
-                    <section id="introduction">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.introductions[0].text} sources={handled_data.introductions[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.introductions[1].text} sources={handled_data.introductions[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Approach</h2></div>
-                    <section id="approach">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.approaches[0].text} sources={handled_data.approaches[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.approaches[1].text} sources={handled_data.approaches[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Use Cases</h2></div>
-                    <section id="use-cases">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.useCases[0].text} sources={handled_data.useCases[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.useCases[1].text} sources={handled_data.useCases[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Advantages</h2></div>
-                    <section id="advantages">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.advantages[0].text} sources={handled_data.advantages[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.advantages[1].text} sources={handled_data.advantages[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Limitations</h2></div>
-                    <section id="limitations">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.limitations[0].text} sources={handled_data.limitations[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.limitations[1].text} sources={handled_data.limitations[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Comparison</h2></div>
-                    <section id="comparisons">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.comparisons[0].text} sources={handled_data.comparisons[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.comparisons[1].text} sources={handled_data.comparisons[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Industry Insights</h2></div>
-                    <section id="industry-insights">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.industryInsights[0].text} sources={handled_data.industryInsights[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.industryInsights[1].text} sources={handled_data.industryInsights[1].sources} />
-                    </section>
-                    <div className="sub-heading"><h2>Beneficiaries</h2></div>
-                    <section id="beneficiaries">
-                        <SectionCard title={handled_data.titles[0]} text={handled_data.beneficiaries[0].text} sources={handled_data.beneficiaries[0].sources} />
-                        <SectionCard title={handled_data.titles[1]} text={handled_data.beneficiaries[1].text} sources={handled_data.beneficiaries[1].sources} />
-                    </section>
+                        {renderSectionCards('Introduction', handled_data.introductions)}
+                        {renderSectionCards('Approach', handled_data.approaches)}
+                        {renderSectionCards('Use Cases', handled_data.useCases)}
+                        {renderSectionCards('Advantages', handled_data.advantages)}
+                        {renderSectionCards('Limitations', handled_data.limitations)}
+                        {renderSectionCards('Comparison', handled_data.comparisons)}
+                        {renderSectionCards('Industry Insights', handled_data.industryInsights)}
+                        {renderSectionCards('Beneficiaries', handled_data.beneficiaries)}
                 </div>
             </div>
         </>
@@ -62,11 +29,16 @@ export default Home;
 function handleData(data) {
     const topicsData = data.find(item => item[0] === 'topics')[1];
     const sourcesData = data.find(item => item[0] === 'sources')[1];
+    const imagesData = data.find(item => item[0] === 'images')[1];
 
     const ids = topicsData.map(item => item.id);
     const titles = topicsData.map(item => item.title);
 
     const extractSources = (text) => {
+        if (typeof text !== 'string') {
+            console.error('extractSources was called with a non-string argument:', text);
+            return [];
+        }
         const matches = text.matchAll(/\[(\d+)\]/g);
         if (matches) {
             const refs = Array.from(matches, m => Number(m[1]));
@@ -81,16 +53,17 @@ function handleData(data) {
             let text = item[field];
             const sources = extractSources(text);
             text = text.replace(/\nSource links: (\[\d+\])+/, '');
-            return { text, sources };
+            const image = imagesData.find(image => image.title.toLowerCase() === field.toLowerCase() && image.topicId === item.id);
+            return { text, sources, image: image ? image.url : null };
         });
     };
 
-    const introductions = createSectionData('introduction');
-    const approaches = createSectionData('approach');
+    const introductions = createSectionData('introductions');
+    const approaches = createSectionData('approaches');
     const useCases = createSectionData('useCases');
     const limitations = createSectionData('limitations');
     const advantages = createSectionData('advantages');
-    const comparisons = createSectionData('comparison');
+    const comparisons = createSectionData('comparisons');
     const industryInsights = createSectionData('industryInsights');
     const beneficiaries = createSectionData('beneficiaries');
 
@@ -106,4 +79,23 @@ function handleData(data) {
         industryInsights,
         beneficiaries
     };
+}
+
+function renderSectionCards(sectionName, data) {
+    return (
+        <>
+            <div className="sub-heading"><h2>{sectionName}</h2></div>
+            <section id={sectionName.toLowerCase().replace(' ', '-')}>
+                {data.map((item, index) => (
+                    <SectionCard 
+                        key={index}
+                        title={item.title} 
+                        text={item.text} 
+                        sources={item.sources} 
+                        image={item.image}
+                    />
+                ))}
+            </section>
+        </>
+    );
 }
