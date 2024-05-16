@@ -8,7 +8,7 @@ const Home = ({ data }) => {
     return (
         <>
             <div className="page-body">
-                <div className="page-content">
+                <article className="page-content">
                     <h1 className="page-title">Serververless Functions vs. Server-based Applications</h1>
                         {renderSectionCards('Introduction', handled_data.introductions)}
                         {renderSectionCards('Approach', handled_data.approaches)}
@@ -18,7 +18,7 @@ const Home = ({ data }) => {
                         {renderSectionCards('Comparison', handled_data.comparisons)}
                         {renderSectionCards('Industry Insights', handled_data.industryInsights)}
                         {renderSectionCards('Beneficiaries', handled_data.beneficiaries)}
-                </div>
+                </article>
             </div>
         </>
     );
