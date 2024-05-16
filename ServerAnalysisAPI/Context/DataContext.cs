@@ -9,11 +9,17 @@ public class DataContext : IdentityDbContext
 	public DbSet<Source> Sources => Set<Source>();
 	public DbSet<Topic> Topics => Set<Topic>();
 	public DbSet<TopicSource> TopicSources => Set<TopicSource>();
+	public DbSet<Image> Images => Set<Image>();
 
 	// Configures the relationships between the entities
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
+
+		modelBuilder.Entity<Image>(entity =>
+		{
+			entity.HasKey(e => e.Id);
+		});
 
 		modelBuilder.Entity<Topic>(entity =>
 		{
