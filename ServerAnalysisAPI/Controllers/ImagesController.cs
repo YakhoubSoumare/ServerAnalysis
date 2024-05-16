@@ -7,7 +7,6 @@ public class ImagesController : ControllerBase
     private readonly IDbService _db;
     public ImagesController(IDbService db) => _db = db;
 
-    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IResult> Get()
     {
@@ -22,7 +21,6 @@ public class ImagesController : ControllerBase
         return Results.Ok(Images);
     }
 
-    [Authorize(Roles = "Admin")]
     [HttpGet("{id}")]
     public async Task<IResult> Get(int id)
     {

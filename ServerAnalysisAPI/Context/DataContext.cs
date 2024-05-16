@@ -19,6 +19,11 @@ public class DataContext : IdentityDbContext
 		modelBuilder.Entity<Image>(entity =>
 		{
 			entity.HasKey(e => e.Id);
+
+			entity.HasOne(d => d.Topic)
+			.WithMany(p => p.Images)
+			.HasForeignKey(d => d.TopicId)
+			.OnDelete(DeleteBehavior.Cascade);
 		});
 
 		modelBuilder.Entity<Topic>(entity =>

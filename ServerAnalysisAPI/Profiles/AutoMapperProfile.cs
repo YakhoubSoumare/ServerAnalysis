@@ -8,5 +8,5 @@ public class AutoMapperProfile : Profile
         CreateMap<Topic, TopicDto>();
         CreateMap<TopicSource, TopicSourceDto>();
         CreateMap<Image, ImageDto>();
-    }
+	}
 }
