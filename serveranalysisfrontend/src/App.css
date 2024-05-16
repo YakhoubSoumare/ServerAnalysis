@@ -1,10 +1,6 @@
 /* ====== GLOBAL STYLES ====== */
 * {
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-  line-height: 1.4;
-  font-size: 18px;
-  font-weight: 500;
 }
 
 pre {
@@ -50,7 +46,11 @@ pre {
   min-height: 100vh;
   margin: 0;
   padding: 0px;
-  background-color: #FEFCFF;
+  background-color: rgb(245, 245, 245);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  line-height: 1.4;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .App-link {
@@ -61,7 +61,6 @@ pre {
 /* ====== NAVBAR STYLES ====== */
 .navbar {
   top: 0; 
-  border: 2px solid blue;
   position: sticky;
   display: flex;
   z-index: 1;
@@ -124,7 +123,6 @@ pre {
 
 .sidebar-container {
   flex: 1;
-  border: 2px solid green;
   max-width: 400px;
   height: 100vh;
   position: fixed;
@@ -174,7 +172,6 @@ pre {
   position: fixed;
   width: 100%;
   bottom: 0;
-  border: 2px solid blue;
   padding: 0 20px;
   margin: 0;
   z-index: 1;
@@ -185,7 +182,6 @@ pre {
 .page-title {
   font-size: 2em;
   padding: 20px;
-  border: 2px solid red;
   margin: 0;
 }
 
@@ -198,7 +194,6 @@ pre {
 
 .page-body .page-content {
   flex: 4;
-  border: 2px solid black;
 }
 
 
@@ -225,9 +220,29 @@ section {
   flex: 0 0 calc(50% - 20px);
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
   margin: 5px;
-  border: 2px solid blue;
+  background-color: rgb(240, 240, 240);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card .img-container {
+  position: relative;
+  width: 100%;
+  padding-top: 33.33%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.card .img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
 }
 
 .card .card-body, .card .card-footer {
@@ -236,11 +251,16 @@ section {
 
 .card-footer {
   margin-top: auto;
-  min-height: 200px;
+  min-height: 175px;
   line-height: normal;
   font-size: medium;
   font-weight: normal;
   font-style: italic;
+}
+
+.card-footer h6 {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
 }
 
 .section-card-image {
@@ -250,11 +270,13 @@ section {
   padding: 10px;
 }
 
-hr {
+.card hr {
   border: none;
-  border-top: 1px solid black;
+  border-top: 1px solid lightgrey;
   width: 100%;
 }
+
+
 
 /* ====== MEDIA QUERIES ====== */
 

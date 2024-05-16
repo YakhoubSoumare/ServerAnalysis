@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLong, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import {Puff} from 'react-loader-spinner';
 
-const baseUrl = 'https://serveranalysisapi.onrender.com/api';
-// const baseUrl = 'http://localhost:8000/api'; // local environment testing
+// const baseUrl = 'https://serveranalysisapi.onrender.com/api';
+const baseUrl = 'http://localhost:8000/api'; // local environment testing
 const endpoints =[
     'topics', 
     'sources'
