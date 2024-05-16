@@ -10,11 +10,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLong, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 import {Puff} from 'react-loader-spinner';
 
-// const baseUrl = 'https://serveranalysisapi.onrender.com/api';
-const baseUrl = 'http://localhost:8000/api'; // local environment testing
-const endpoints =[
-    'topics', 
-    'sources'
+let baseUrl;
+
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  const useLocalApi = window.confirm('You want to use local api?');
+  baseUrl = useLocalApi ? 'http://localhost:8000/api' : 'https://serveranalysisapi.onrender.com/api';
+} else {
+  baseUrl = 'https://serveranalysisapi.onrender.com/api';
+}
+
+const endpoints = [
+  'topics', 
+  'sources'
 ];
 
 function App() {

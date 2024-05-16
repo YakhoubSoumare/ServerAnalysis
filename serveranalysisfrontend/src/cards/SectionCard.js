@@ -3,7 +3,9 @@ import React from "react";
 export default function SectionCard({ image, title, text, sources }) {
   return (
     <div className="card">
-      <img src={image} alt={title} className="card-img-top"/>
+      <div className="img-container">
+        <img src={image} alt={title} className="card-img-top"/>
+      </div>
       <div className="card-body">
         <hr/>
         <h5 className="card-title">{title}</h5>
@@ -11,6 +13,7 @@ export default function SectionCard({ image, title, text, sources }) {
       </div>
       <div className="card-footer">
         <hr/>
+        <h6>Sources</h6>
         <small className="text-muted">
           {sources.map((source, index) => (
             <p key={index}>
