@@ -280,6 +280,12 @@ section {
 
 /* ====== MEDIA QUERIES ====== */
 
+@media (min-width: 801px) {
+  .card:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
 @media (max-width: 800px){
   section {
     flex-direction: column;
