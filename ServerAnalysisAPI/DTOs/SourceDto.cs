@@ -1,11 +1,10 @@
-namespace ServerAnalysisAPI.DTOs
+namespace ServerAnalysisAPI.DTOs;
+
+public class SourceDto
 {
-    public class SourceDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Link { get; set; } = string.Empty;
-        public string Purpose { get; set; } = string.Empty;
-        public int? ReferenceNumber { get; set; }
-    }
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Link { get; set; } = string.Empty;
+    public string Purpose { get; set; } = string.Empty;
+    public int? ReferenceNumber { get; set; }
 }
