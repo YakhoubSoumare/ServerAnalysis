@@ -20,9 +20,10 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 }
 
 const endpoints = [
-  'topics', 
-  'sources',
-  'images'
+    'topics', 
+    'sources',
+    'images',
+    'abouts'
 ];
 
 function App() {

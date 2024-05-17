@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 namespace ServerAnalysisAPI.Controllers;
 
 [ApiController]
@@ -5,9 +6,11 @@ namespace ServerAnalysisAPI.Controllers;
 public class TopicsController : ControllerBase
 {
     private readonly IDbService _db;
-    public TopicsController(IDbService db)
+    private readonly ILogger<TopicsController> _logger;
+    public TopicsController(IDbService db, ILogger<TopicsController> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
 	[HttpGet]
@@ -19,7 +22,10 @@ public class TopicsController : ControllerBase
             topics = await _db.GetAsync<Topic, TopicDto>();
             if (topics == null) {return NotFound();}  
         }
-        catch { return BadRequest(); }
+        catch (Exception ex) { 
+             _logger.LogError(ex, "An error occurred while getting topics");
+            return BadRequest(); 
+            }
 
         return Ok(topics);
     }
