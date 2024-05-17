@@ -8,30 +8,30 @@ public class ImagesController : ControllerBase
     public ImagesController(IDbService db) => _db = db;
 
     [HttpGet]
-    public async Task<IResult> Get()
+    public async Task<IActionResult> Get()
     {
         var Images = new object();
         try
         {
             Images = await _db.GetAsync<Image, ImageDto>();
-            if (Images == null) {return Results.NotFound();}  
+            if (Images == null) {return NotFound();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
-        return Results.Ok(Images);
+        return Ok(Images);
     }
 
     [HttpGet("{id}")]
-    public async Task<IResult> Get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var Images = new object();
         try
         {
             Images = await _db.SingleAsync<Image, ImageDto>(e => e.Id == id);
-            if (Images == null) {return Results.NotFound();}  
+            if (Images == null) {return NotFound();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
-        return Results.Ok(Images);
+        return Ok(Images);
     }
 }

@@ -6,13 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
 string? connectionString;
 
-//Add services to the container.
+
 builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 {
 	if (env.IsDevelopment())
 	{
-		DotNetEnv.Env.Load("../.env"); // local environment variable
-		//connectionString = Environment.GetEnvironmentVariable("LOCAL_CONNECTION");
+		DotNetEnv.Env.Load("../.env");
 		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
 	}
 	else
@@ -25,13 +24,13 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 		throw new InvalidOperationException("Connection string is not set.");
 	}
 
-	//options.UseSqlServer(connectionString);
+
 	options.UseNpgsql(connectionString);
 	
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
@@ -71,11 +70,13 @@ builder.Services.AddCors(options =>
 	});
 });
 
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 var app = builder.Build();
 
 app.UseCors("AllowAll");
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
@@ -97,7 +98,6 @@ using (var scope = app.Services.CreateScope())
 	var accountService = new AccountService(userManager, roleManager);
 	accountService.CreateRolesAsync().GetAwaiter().GetResult();
 
-	//Seeding admin if none exists
 	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
 	dataSeeder.SeedData().Wait();
 }
@@ -109,8 +109,8 @@ void ConfigureAutomapper(IServiceCollection services)
 {
 	var config = new MapperConfiguration(cfg =>
 	{
-		cfg.CreateMap<Source, SourceDto>().ReverseMap();
-		cfg.CreateMap<Topic, TopicDto>().ReverseMap();
+		cfg.CreateMap<Topic, SourceDto>().ReverseMap();
+		cfg.CreateMap<Topic, SourceDto>().ReverseMap();
 		cfg.CreateMap<TopicSource, TopicSourceDto>().ReverseMap();
 		cfg.CreateMap<Image, ImageDto>().ReverseMap();
 	});
