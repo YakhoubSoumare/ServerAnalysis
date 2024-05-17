@@ -8,7 +8,9 @@ public class DataContext : IdentityDbContext
 
 	public DbSet<Source> Sources => Set<Source>();
 	public DbSet<Topic> Topics => Set<Topic>();
+	public DbSet<About> Abouts => Set<About>();
 	public DbSet<TopicSource> TopicSources => Set<TopicSource>();
+	public DbSet<AboutSource> AboutSources => Set<AboutSource>();
 	public DbSet<Image> Images => Set<Image>();
 
 	// Configures the relationships between the entities
@@ -31,6 +33,11 @@ public class DataContext : IdentityDbContext
 			entity.HasKey(e => e.Id);
 		});
 
+		modelBuilder.Entity<About>(entity =>
+		{
+			entity.HasKey(e => e.Id);
+		});
+
 		modelBuilder.Entity<Source>(entity =>
 		{
 			entity.HasKey(e => e.Id);
@@ -47,6 +54,21 @@ public class DataContext : IdentityDbContext
 
 			entity.HasOne(d => d.Source)
 				.WithMany(p => p.TopicSources)
+				.HasForeignKey(d => d.SourceId)
+				.OnDelete(DeleteBehavior.Cascade);
+		});
+
+		modelBuilder.Entity<AboutSource>(entity =>
+		{
+			entity.HasKey(e => new { e.AboutId, e.SourceId });
+
+			entity.HasOne(d => d.About)
+				.WithMany(p => p.AboutSources)
+				.HasForeignKey(d => d.AboutId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			entity.HasOne(d => d.Source)
+				.WithMany(p => p.AboutSources)
 				.HasForeignKey(d => d.SourceId)
 				.OnDelete(DeleteBehavior.Cascade);
 		});

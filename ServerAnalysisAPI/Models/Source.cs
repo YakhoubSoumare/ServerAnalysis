@@ -8,5 +8,6 @@ namespace ServerAnalysisAPI.Models
 		public string Link { get; set; } = string.Empty;
 		public int? ReferenceNumber { get; set; }
 		public virtual ICollection<TopicSource>? TopicSources { get; set; }
+        public virtual ICollection<AboutSource>? AboutSources { get; set; }
     }
 }
