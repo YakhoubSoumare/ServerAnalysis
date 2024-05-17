@@ -70,6 +70,8 @@ builder.Services.AddCors(options =>
 	});
 });
 
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 var app = builder.Build();
 
 app.UseCors("AllowAll");
@@ -107,8 +109,8 @@ void ConfigureAutomapper(IServiceCollection services)
 {
 	var config = new MapperConfiguration(cfg =>
 	{
-		cfg.CreateMap<Source, SourceDto>().ReverseMap();
-		cfg.CreateMap<Topic, TopicDto>().ReverseMap();
+		cfg.CreateMap<Topic, SourceDto>().ReverseMap();
+		cfg.CreateMap<Topic, SourceDto>().ReverseMap();
 		cfg.CreateMap<TopicSource, TopicSourceDto>().ReverseMap();
 		cfg.CreateMap<Image, ImageDto>().ReverseMap();
 	});

@@ -11,39 +11,39 @@ public class TopicsController : ControllerBase
     }
 
 	[HttpGet]
-    public async Task<IResult> Get()
+    public async Task<IActionResult> Get()
     {
         var topics = new object();
         try
         {
             topics = await _db.GetAsync<Topic, TopicDto>();
-            if (topics == null) {return Results.NotFound();}  
+            if (topics == null) {return NotFound();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
-        return Results.Ok(topics);
+        return Ok(topics);
     }
 
     [HttpGet("{id}")]
-    public async Task<IResult> Get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var topic = new object();
         try
         {
             topic = await _db.SingleAsync<Topic, TopicDto>(e => e.Id == id);
-            if (topic == null) {return Results.NotFound();}  
+            if (topic == null) {return NotFound();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
-        return Results.Ok(topic);
+        return Ok(topic);
     }
 
 	[Authorize(Roles = "Admin")]
 	[HttpPost]
-    public async Task<IResult> Post([FromBody] TopicDto dto)
+    public async Task<IActionResult> Post([FromBody] TopicDto dto)
     {
         if (!ModelState.IsValid) { // model validation eg. [Required] etc.
-                return Results.BadRequest(ModelState);
+                return BadRequest(ModelState);
         }
 
         Topic topic;
@@ -51,52 +51,52 @@ public class TopicsController : ControllerBase
         {
             topic = await _db.AddAsync<Topic, TopicDto>(dto);
             var success = await _db.SaveChangesAsync();
-            if (!success) {return Results.BadRequest();}  
+            if (!success) {return BadRequest();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
         string uri = _db.GetURI<Topic>(topic);
-        return Results.Created(uri, topic);
+        return Created(uri, topic);
     }
 
 	[Authorize(Roles = "Admin")]
 	[HttpPut("{id}")]
-    public async Task<IResult> Put(int id, [FromBody] TopicDto dto)
+    public async Task<IActionResult> Put(int id, [FromBody] TopicDto dto)
     {
         if (dto == null || dto.Id != id || dto.Id == 0){
-            return Results.BadRequest("ID cannot be null or 0 and must match the ID.");
+            return BadRequest("ID cannot be null or 0 and must match the ID.");
         }
 
         try
         {
             var exists = await _db.AnyAsync<Topic>(e => e.Id == id);
-            if (!exists) {return Results.NotFound();}
+            if (!exists) {return NotFound();}
 
             _db.UpdateAsync<Topic, TopicDto>(id, dto);
             
             var success = await _db.SaveChangesAsync();
-            if (!success) {return Results.BadRequest();}  
+            if (!success) {return BadRequest();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
-        return Results.NoContent();
+        return NoContent();
     }
 
 	[Authorize(Roles = "Admin")]
 	[HttpDelete("{id}")]
-    public async Task<IResult> Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         try
         {
             var exists = await _db.AnyAsync<Topic>(e => e.Id == id);
-            if (!exists) {return Results.NotFound();}
+            if (!exists) {return NotFound();}
 
             var deletion = await _db.DeleteAsync<Topic>(id);
             var success = await _db.SaveChangesAsync();
-            if (!success || !deletion) {return Results.BadRequest();}  
+            if (!success || !deletion) {return BadRequest();}  
         }
-        catch { return Results.BadRequest(); }
+        catch { return BadRequest(); }
 
-        return Results.NoContent();
+        return NoContent();
     }
 }

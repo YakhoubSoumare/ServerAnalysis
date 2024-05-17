@@ -1,6 +1,6 @@
 ﻿namespace ServerAnalysisAPI.Services;
 
-public class AccountService
+public class AccountService: IAccountService
 {
 	private readonly UserManager<IdentityUser> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
