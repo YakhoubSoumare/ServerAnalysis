@@ -70,6 +70,8 @@ builder.Services.AddCors(options =>
 	});
 });
 
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 var app = builder.Build();
 
 app.UseCors("AllowAll");
