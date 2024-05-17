@@ -112,6 +112,8 @@ void ConfigureAutomapper(IServiceCollection services)
 		cfg.CreateMap<Topic, SourceDto>().ReverseMap();
 		cfg.CreateMap<Topic, SourceDto>().ReverseMap();
 		cfg.CreateMap<TopicSource, TopicSourceDto>().ReverseMap();
+		cfg.CreateMap<About, AboutDto>().ReverseMap();
+		cfg.CreateMap<AboutSource, AboutSourceDto>().ReverseMap();
 		cfg.CreateMap<Image, ImageDto>().ReverseMap();
 	});
 	var mapper = config.CreateMapper();

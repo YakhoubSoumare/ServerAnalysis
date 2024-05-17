@@ -7,6 +7,8 @@ public class AutoMapperProfile : Profile
         CreateMap<Source, SourceDto>();
         CreateMap<Topic, TopicDto>();
         CreateMap<TopicSource, TopicSourceDto>();
+        CreateMap<About, AboutDto>();
+        CreateMap<AboutSource, AboutSourceDto>();
         CreateMap<Image, ImageDto>();
 	}
 }
