@@ -11,6 +11,7 @@ global using System.Linq.Expressions;
 global using ServerAnalysisAPI.DTOs;
 global using Microsoft.AspNetCore.Authorization;
 global using ServerAnalysisAPI.Services;
+global using ServerAnalysisAPI.Controllers;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using Moq;
 global using System.Collections.Generic;
