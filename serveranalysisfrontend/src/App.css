@@ -38,6 +38,10 @@ pre {
   color: white;
 }
 
+.pre-line {
+  white-space: pre-line;
+}
+
 /* ====== CONTAINER STYLES ====== */
 .App { 
   text-align: center;

@@ -78,7 +78,7 @@ function handleData(data) {
         return aboutsData.map(item => {
             let text = item[field];
             const sources = extractSources(text);
-            text = text.replace(/\nSource links: (\[\d+\])+/, '');
+            text = text.replace(/\nSource-links: (\[\d+\])+/, '');
             return { text, sources };
         });
     };

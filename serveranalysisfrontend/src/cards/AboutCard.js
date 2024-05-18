@@ -8,9 +8,9 @@ export default function About({ title, text, sources }) {
       </div>
       <div className="about-card-body">
         <hr/>
-        <p className="about-card-text">{text}</p>
+        <p className="about-card-text  pre-line">{text}</p>
       </div>
-      {sources.length > 0 && (
+      {sources.length > 0 && 
         <div className="about-card-footer">
           <hr/>
           <h6>Sources</h6>
@@ -24,7 +24,7 @@ export default function About({ title, text, sources }) {
             ))}
           </small>
         </div>
-      )}
+      }
   </div>
   );
 }
