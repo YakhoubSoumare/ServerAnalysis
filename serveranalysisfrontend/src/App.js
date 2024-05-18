@@ -111,7 +111,7 @@ function MainBody({ data, currentRoute, setCurrentRoute  }) {
         <div className="app-body">
           <Routes>
             <Route path="/" element={<Home data={data} />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About data={data} />} />
           </Routes>
         </div>
       </div>

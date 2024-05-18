@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AboutCard from "../cards/AboutCard";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpLong } from '@fortawesome/free-solid-svg-icons';
 
 const About = ({ data }) => {
-    // const handled_data = handleData(data);
-    console.log(data);
+    const handled_data = handleData(data);
+
+    const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+        const toggleVisibility = () => {
+          if (window.scrollY > 300) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        };
+      
+        window.addEventListener("scroll", toggleVisibility);
+      
+        return () => window.removeEventListener("scroll", toggleVisibility);
+      }, []);
+
+      const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      };
 
     return (
-        <div>
-            <h1 className="page-title">About</h1>
+        <div className="page-body">
+            <article className="page-content">
+                <h1 className="page-title">About</h1>
+                    {renderSectionCards('Overview', handled_data.overview)}
+                    {renderSectionCards('Language', handled_data.language)}
+                    {renderSectionCards('Framework', handled_data.framework)}
+                    {renderSectionCards('Api', handled_data.api)}
+                    {renderSectionCards('Database', handled_data.database)}
+                    {renderSectionCards('Security', handled_data.security)}
+                    {renderSectionCards('Front-End', handled_data.frontEnd)}
+                    {renderSectionCards('Test', handled_data.test)}
+                    {renderSectionCards('Version Control', handled_data.versionControl)}
+                    {isVisible && (
+                        <div className="up-top-icon" onClick={scrollToTop}>
+                            <FontAwesomeIcon icon={faUpLong} size="2x" />
+                        </div>
+                    )}
+            </article>
         </div>
     );
 }
@@ -69,20 +108,19 @@ function handleData(data) {
     };
 }
 
-// function renderSectionCards(sectionName, data) {
-//     return (
-//         <>
-//             <div className="sub-heading"><h2>{sectionName}</h2></div>
-//             <section id={sectionName.toLowerCase().replace(' ', '-')}>
-//                 {data.map((item, index) => (
-//                     <AboutCard 
-//                         key={index}
-//                         title={item.title} 
-//                         text={item.text} 
-//                         sources={item.sources} 
-//                     />
-//                 ))}
-//             </section>
-//         </>
-//     );
-// }
+function renderSectionCards(sectionName, data) {
+    return (
+        <>
+            <section id={sectionName.toLowerCase().replace(' ', '-')}>
+                {data.map((item, index) => (
+                    <AboutCard 
+                        key={index}
+                        title={sectionName}
+                        text={item.text} 
+                        sources={item.sources} 
+                    />
+                ))}
+            </section>
+        </>
+    );
+}
