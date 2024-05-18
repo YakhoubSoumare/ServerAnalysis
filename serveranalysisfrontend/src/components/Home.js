@@ -3,7 +3,6 @@ import SectionCard from "../cards/SectionCard";
 const Home = ({ data }) => {
 
     const handled_data = handleData(data);
-    console.log(handled_data);
 
     return (
         <>

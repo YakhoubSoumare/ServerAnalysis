@@ -15,5 +15,5 @@ global using ServerAnalysisAPI.Controllers;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using Moq;
 global using System.Collections.Generic;
-global using Moq.EntityFrameworkCore;
 global using System.Security.Claims;
+global using Microsoft.Extensions.Logging;

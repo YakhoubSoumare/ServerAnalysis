@@ -10,7 +10,8 @@ public class TopicsControllerTests
     public void TestInitialize()
     {
         _mockDbService = new Mock<IDbService>();
-        _controller = new TopicsController(_mockDbService.Object);
+        var mockLogger = new Mock<ILogger<TopicsController>>();
+        _controller = new TopicsController(_mockDbService.Object, mockLogger.Object);
     }
     
     [TestMethod]
