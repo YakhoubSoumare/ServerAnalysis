@@ -1,25 +1,24 @@
 namespace ServerAnalysisAPI.Tests;
 
 [TestClass]
-public class TopicsControllerTests
+public class AboutsControllerTests
 {
     private Mock<IDbService> _mockDbService = null!;
-    private TopicsController _controller = null!;
+    private AboutsController _controller = null!;
 
     [TestInitialize]
     public void TestInitialize()
     {
         _mockDbService = new Mock<IDbService>();
-        var mockLogger = new Mock<ILogger<TopicsController>>();
-        _controller = new TopicsController(_mockDbService.Object, mockLogger.Object);
+        _controller = new AboutsController(_mockDbService.Object);
     }
     
     [TestMethod]
-    public async Task Get_ReturnsOkResult_WhenTopicsExist()
+    public async Task Get_ReturnsOkResult_WhenAboutsExist()
     {
         // Arrange
-        var topics = new List<TopicDto> { new TopicDto(), new TopicDto() };
-        _mockDbService.Setup(db => db.GetAsync<Topic, TopicDto>()).ReturnsAsync(topics);
+        var abouts = new List<AboutDto> { new AboutDto(), new AboutDto() };
+        _mockDbService.Setup(db => db.GetAsync<About, AboutDto>()).ReturnsAsync(abouts);
 
         // Act
         var result = await _controller.Get();
@@ -28,16 +27,16 @@ public class TopicsControllerTests
         var okResult = result as OkObjectResult;
         Assert.IsNotNull(okResult);
         Assert.AreEqual(StatusCodes.Status200OK, okResult.StatusCode);
-        var responseTopics = okResult.Value as List<TopicDto>;
-        Assert.IsNotNull(responseTopics);
-        Assert.AreEqual(topics.Count, responseTopics.Count);
+        var responseAbouts = okResult.Value as List<AboutDto>;
+        Assert.IsNotNull(responseAbouts);
+        Assert.AreEqual(abouts.Count, responseAbouts.Count);
     }
 
     [TestMethod]
-    public async Task Get_ReturnsNotFoundResult_WhenTopicsDoNotExist()
+    public async Task Get_ReturnsNotFoundResult_WhenAboutsDoNotExist()
     {
         // Arrange
-        _mockDbService.Setup(db => db.GetAsync<Topic, TopicDto>()).ReturnsAsync(new List<TopicDto>());
+        _mockDbService.Setup(db => db.GetAsync<About, AboutDto>()).ReturnsAsync(new List<AboutDto>());
 
         // Act
         var result = await _controller.Get();
@@ -46,16 +45,16 @@ public class TopicsControllerTests
         var okResult = result as OkObjectResult;
         Assert.IsNotNull(okResult);
         Assert.AreEqual(StatusCodes.Status200OK, okResult.StatusCode);
-        var responseTopics = okResult.Value as List<TopicDto>;
-        Assert.IsNotNull(responseTopics);
-        Assert.AreEqual(0, responseTopics.Count);
+        var responseAbouts = okResult.Value as List<AboutDto>;
+        Assert.IsNotNull(responseAbouts);
+        Assert.AreEqual(0, responseAbouts.Count);
     }
 
     [TestMethod]
     public async Task Get_ReturnsBadRequestResult_WhenExceptionIsThrown()
     {
         // Arrange
-        _mockDbService.Setup(db => db.GetAsync<Topic, TopicDto>()).ThrowsAsync(new Exception());
+        _mockDbService.Setup(db => db.GetAsync<About, AboutDto>()).ThrowsAsync(new Exception());
 
         // Act
         var result = await _controller.Get();
@@ -66,34 +65,34 @@ public class TopicsControllerTests
     }
 
     [TestMethod]
-    public async Task GetById_ReturnsOkResult_WhenTopicExists()
+    public async Task GetById_ReturnsOkResult_WhenAboutExists()
     {
         // Arrange
-        var topicId = 1;
-        var topic = new TopicDto { Id = topicId };
-        _mockDbService.Setup(db => db.SingleAsync<Topic, TopicDto>(i => i.Id == topicId)).ReturnsAsync(topic);
+        var AboutId = 1;
+        var about = new AboutDto { Id = AboutId };
+        _mockDbService.Setup(db => db.SingleAsync<About, AboutDto>(i => i.Id == AboutId)).ReturnsAsync(about);
 
         // Act
-        var result = await _controller.Get(topicId);
+        var result = await _controller.Get(AboutId);
 
         // Assert
         var okResult = result as OkObjectResult;
         Assert.IsNotNull(okResult);
         Assert.AreEqual(StatusCodes.Status200OK, okResult.StatusCode);
-        var responsetopic = okResult.Value as TopicDto;
-        Assert.IsNotNull(responsetopic);
-        Assert.AreEqual(topicId, responsetopic.Id);
+        var responseAbout = okResult.Value as AboutDto;
+        Assert.IsNotNull(responseAbout);
+        Assert.AreEqual(AboutId, responseAbout.Id);
     }
 
     [TestMethod]
-    public async Task Post_ReturnsCreatedResult_WhenTopicIsValid()
+    public async Task Post_ReturnsCreatedResult_WhenAboutIsValid()
     {
         // Arrange
-        var topicDto = new TopicDto();
-        var topic = new Topic();
-        _mockDbService.Setup(db => db.AddAsync<Topic, TopicDto>(topicDto)).ReturnsAsync(topic);
+        var aboutDto = new AboutDto();
+        var about = new About();
+        _mockDbService.Setup(db => db.AddAsync<About, AboutDto>(aboutDto)).ReturnsAsync(about);
         _mockDbService.Setup(db => db.SaveChangesAsync()).ReturnsAsync(true);
-        _mockDbService.Setup(db => db.GetURI<Topic>(topic)).Returns("http://localhost/api/topics/1");
+        _mockDbService.Setup(db => db.GetURI<About>(about)).Returns("http://localhost/api/abouts/1");
 
         // Mock user and role
         var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
@@ -109,27 +108,27 @@ public class TopicsControllerTests
         };
 
         // Act
-        var result = await _controller.Post(topicDto);
+        var result = await _controller.Post(aboutDto);
 
         // Assert
         var createdResult = result as CreatedResult;
         Assert.IsNotNull(createdResult);
         Assert.AreEqual(StatusCodes.Status201Created, createdResult.StatusCode);
-        Assert.AreEqual("http://localhost/api/topics/1", createdResult.Location);
-        var responseTopic = createdResult.Value as Topic;
-        Assert.IsNotNull(responseTopic);
+        Assert.AreEqual("http://localhost/api/abouts/1", createdResult.Location);
+        var responseAbout = createdResult.Value as About;
+        Assert.IsNotNull(responseAbout);
     }
 
     [TestMethod]
-    public async Task Put_ReturnsNoContentResult_WhenTopicIsValid()
+    public async Task Put_ReturnsNoContentResult_WhenAboutIsValid()
     {
         // Arrange
-        var topicId = 1;
-        var topicDto = new TopicDto { Id = topicId };
-        var topic = new Topic();
+        var aboutId = 1;
+        var aboutDto = new AboutDto { Id = aboutId };
+        var about = new About();
 
-        _mockDbService.Setup(db => db.AnyAsync<Topic>(e => e.Id == topicId)).ReturnsAsync(true);
-        _mockDbService.Setup(db => db.UpdateAsync<Topic, TopicDto>(topicId, topicDto)); // No return value
+        _mockDbService.Setup(db => db.AnyAsync<About>(e => e.Id == aboutId)).ReturnsAsync(true);
+        _mockDbService.Setup(db => db.UpdateAsync<About, AboutDto>(aboutId, aboutDto)); // No return value
         _mockDbService.Setup(db => db.SaveChangesAsync()).ReturnsAsync(true);
 
         // Mock user and role
@@ -146,7 +145,7 @@ public class TopicsControllerTests
         };
 
         // Act
-        var result = await _controller.Put(topicId, topicDto);
+        var result = await _controller.Put(aboutId, aboutDto);
 
         // Assert
         var noContentResult = result as NoContentResult;
@@ -155,12 +154,12 @@ public class TopicsControllerTests
     }
 
     [TestMethod]
-    public async Task Delete_ReturnsNoContentResult_WhenTopicExists()
+    public async Task Delete_ReturnsNoContentResult_WhenAboutExists()
     {
         // Arrange
-        var topicId = 1;
-        _mockDbService.Setup(db => db.AnyAsync<Topic>(e => e.Id == topicId)).ReturnsAsync(true);
-        _mockDbService.Setup(db => db.DeleteAsync<Topic>(topicId)).ReturnsAsync(true);
+        var aboutId = 1;
+        _mockDbService.Setup(db => db.AnyAsync<About>(e => e.Id == aboutId)).ReturnsAsync(true);
+        _mockDbService.Setup(db => db.DeleteAsync<About>(aboutId)).ReturnsAsync(true);
         _mockDbService.Setup(db => db.SaveChangesAsync()).ReturnsAsync(true);
 
         // Mock user and role
@@ -177,7 +176,7 @@ public class TopicsControllerTests
         };
 
         // Act
-        var result = await _controller.Delete(topicId);
+        var result = await _controller.Delete(aboutId);
 
         // Assert
         var noContentResult = result as NoContentResult;

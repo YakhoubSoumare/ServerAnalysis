@@ -1,73 +1,67 @@
-using Microsoft.Extensions.Logging;
 namespace ServerAnalysisAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TopicsController : ControllerBase
+public class AboutsController : ControllerBase
 {
     private readonly IDbService _db;
-    private readonly ILogger<TopicsController> _logger;
-    public TopicsController(IDbService db, ILogger<TopicsController> logger)
+    public AboutsController(IDbService db)
     {
         _db = db;
-        _logger = logger;
     }
 
 	[HttpGet]
     public async Task<IActionResult> Get()
     {
-        var topics = new object();
+        var abouts = new object();
         try
         {
-            topics = await _db.GetAsync<Topic, TopicDto>();
-            if (topics == null) {return NotFound();}  
+            abouts = await _db.GetAsync<About, AboutDto>();
+            if (abouts == null) {return NotFound();}  
         }
-        catch (Exception ex) { 
-             _logger.LogError(ex, "An error occurred while getting topics");
-            return BadRequest(); 
-            }
+        catch { return BadRequest(); }
 
-        return Ok(topics);
+        return Ok(abouts);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var topic = new object();
+        var about = new object();
         try
         {
-            topic = await _db.SingleAsync<Topic, TopicDto>(e => e.Id == id);
-            if (topic == null) {return NotFound();}  
+            about = await _db.SingleAsync<About, AboutDto>(e => e.Id == id);
+            if (about == null) {return NotFound();}  
         }
         catch { return BadRequest(); }
 
-        return Ok(topic);
+        return Ok(about);
     }
 
 	[Authorize(Roles = "Admin")]
 	[HttpPost]
-    public async Task<IActionResult> Post([FromBody] TopicDto dto)
+    public async Task<IActionResult> Post([FromBody] AboutDto dto)
     {
         if (!ModelState.IsValid) { // model validation eg. [Required] etc.
                 return BadRequest(ModelState);
         }
 
-        Topic topic;
+        About about;
         try
         {
-            topic = await _db.AddAsync<Topic, TopicDto>(dto);
+            about = await _db.AddAsync<About, AboutDto>(dto);
             var success = await _db.SaveChangesAsync();
             if (!success) {return BadRequest();}  
         }
         catch { return BadRequest(); }
 
-        string uri = _db.GetURI<Topic>(topic);
-        return Created(uri, topic);
+        string uri = _db.GetURI<About>(about);
+        return Created(uri, about);
     }
 
 	[Authorize(Roles = "Admin")]
 	[HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, [FromBody] TopicDto dto)
+    public async Task<IActionResult> Put(int id, [FromBody] AboutDto dto)
     {
         if (dto == null || dto.Id != id || dto.Id == 0){
             return BadRequest("ID cannot be null or 0 and must match the ID.");
@@ -75,10 +69,10 @@ public class TopicsController : ControllerBase
 
         try
         {
-            var exists = await _db.AnyAsync<Topic>(e => e.Id == id);
+            var exists = await _db.AnyAsync<About>(e => e.Id == id);
             if (!exists) {return NotFound();}
 
-            _db.UpdateAsync<Topic, TopicDto>(id, dto);
+            _db.UpdateAsync<About, AboutDto>(id, dto);
             
             var success = await _db.SaveChangesAsync();
             if (!success) {return BadRequest();}  
@@ -94,10 +88,10 @@ public class TopicsController : ControllerBase
     {
         try
         {
-            var exists = await _db.AnyAsync<Topic>(e => e.Id == id);
+            var exists = await _db.AnyAsync<About>(e => e.Id == id);
             if (!exists) {return NotFound();}
 
-            var deletion = await _db.DeleteAsync<Topic>(id);
+            var deletion = await _db.DeleteAsync<About>(id);
             var success = await _db.SaveChangesAsync();
             if (!success || !deletion) {return BadRequest();}  
         }

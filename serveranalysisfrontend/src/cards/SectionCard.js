@@ -9,7 +9,7 @@ export default function SectionCard({ image, title, text, sources }) {
       <div className="card-body">
         <hr/>
         <h5 className="card-title">{title}</h5>
-        <p className="card-text">{text}</p>
+        <p className="card-text pre-line">{text}</p>
       </div>
       <div className="card-footer">
         <hr/>
