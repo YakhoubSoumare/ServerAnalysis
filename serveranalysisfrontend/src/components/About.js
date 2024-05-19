@@ -4,6 +4,7 @@ import useScrollVisibility from "../customHooks/useScrollVisibility";
 import { useScrollToTop } from "../customHooks/useScrollTop";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpLong } from '@fortawesome/free-solid-svg-icons';
+import useScrollToTopOnRouteChange from "../customHooks/useScrollToTopOnRouteChange";
 
 const About = ({ data }) => {
     const handled_data = handleData(data);
@@ -11,6 +12,8 @@ const About = ({ data }) => {
     const isVisible = useScrollVisibility();
 
     const scrollToTop = useScrollToTop();
+
+    useScrollToTopOnRouteChange();
 
     return (
         <div className="page-body">
