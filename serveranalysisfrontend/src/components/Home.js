@@ -1,8 +1,19 @@
 import SectionCard from "../cards/SectionCard";
+import useScrollVisibility from "../customHooks/useScrollVisibility";
+import { useScrollToTop } from "../customHooks/useScrollTop";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpLong } from '@fortawesome/free-solid-svg-icons';
+import useScrollToTopOnRouteChange from "../customHooks/useScrollToTopOnRouteChange";
 
 const Home = ({ data }) => {
 
     const handled_data = handleData(data);
+
+    const isVisible = useScrollVisibility();
+
+    const scrollToTop = useScrollToTop();
+
+    useScrollToTopOnRouteChange();
 
     return (
         <>
@@ -17,6 +28,11 @@ const Home = ({ data }) => {
                         {renderSectionCards('Comparison', handled_data.comparisons)}
                         {renderSectionCards('Industry Insights', handled_data.industryInsights)}
                         {renderSectionCards('Beneficiaries', handled_data.beneficiaries)}
+                        {isVisible && (
+                        <div className="up-top-icon" onClick={scrollToTop}>
+                            <FontAwesomeIcon icon={faUpLong} size="2x" />
+                        </div>
+                    )}
                 </article>
             </div>
         </>
