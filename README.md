@@ -88,7 +88,6 @@ This project uses a variety of technologies:
 - MSTest
 
 ## Deployment
-
 - Docker Image
 - GitHub Packages
 - Render
