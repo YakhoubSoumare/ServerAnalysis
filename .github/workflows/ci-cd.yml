@@ -41,20 +41,20 @@ jobs:
           az webapp config container set --name server-analysis --resource-group thesis --docker-custom-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --docker-registry-server-url https://ghcr.io --docker-registry-server-user ${{ github.actor }} --docker-registry-server-password ${{ secrets.REGISTRY_TOKEN }}
           az webapp restart --name server-analysis --resource-group thesis
 
-      - name: Deploy to Render
-        run: |
-          curl -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-              -H "Content-Type: application/json" \
-              -X POST \
-              -d '{
-                    "type": "web",
-                    "name": "serveranalysisapi",
-                    "image": "ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest",
-                    "envVars": [
-                      {
-                        "key": "REGISTRY_TOKEN",
-                        "value": "${{ secrets.REGISTRY_TOKEN }}"
-                      }
-                    ]
-                  }' \
-          https://api.render.com/v1/services
+      # - name: Deploy to Render
+      #   run: |
+      #     curl -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+      #         -H "Content-Type: application/json" \
+      #         -X POST \
+      #         -d '{
+      #               "type": "web",
+      #               "name": "serveranalysisapi",
+      #               "image": "ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest",
+      #               "envVars": [
+      #                 {
+      #                   "key": "REGISTRY_TOKEN",
+      #                   "value": "${{ secrets.REGISTRY_TOKEN }}"
+      #                 }
+      #               ]
+      #             }' \
+      #     https://api.render.com/v1/services
