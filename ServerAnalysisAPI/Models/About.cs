@@ -13,5 +13,7 @@ public class About : IEntity
 	public string FrontEnd { get; set; } = string.Empty;
 	public string Test { get; set; } = string.Empty;
 	public string VersionControl { get; set; } = string.Empty;
+	public string Challenges { get; set; } = string.Empty;
+	public string Improvements { get; set; } = string.Empty;
 	public virtual ICollection<AboutSource>? AboutSources { get; set; }
 }
