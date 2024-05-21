@@ -95,7 +95,7 @@ using (var scope = app.Services.CreateScope())
 {
 	var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-	var accountService = new AccountService(userManager, roleManager);
+	var accountService = scope.ServiceProvider.GetRequiredService<AccountService>();
 	accountService.CreateRolesAsync().GetAwaiter().GetResult();
 
 	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
