@@ -17,6 +17,9 @@ Planning/
 **/obj/
 **/bin/
 
+# azure user secrets
+secrets.json
+
 ###################################### FRONTEND ######################################
 
 # dependencies
