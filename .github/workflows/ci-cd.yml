@@ -33,6 +33,10 @@ jobs:
         run: |
           az login --service-principal -u ${{ secrets.AZURE_APP_ID }} -p ${{ secrets.AZURE_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
 
+      - name: Set WEBSITES_PORT setting
+        run: |
+          az webapp config appsettings set --resource-group thesis --name server-analysis --settings WEBSITES_PORT=8080
+
       - name: Deploy to Azure
         run: |
           az webapp config container set --name server-analysis --resource-group thesis --docker-custom-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --docker-registry-server-url https://ghcr.io --docker-registry-server-user ${{ github.actor }} --docker-registry-server-password ${{ secrets.REGISTRY_TOKEN }}
