@@ -26,7 +26,7 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          curl https://getcli.rend.run | sh
+          curl https://getcli.render.com | sh
           render login --token ${{ secrets.RENDER_API_KEY }}
           render deploy --type web --name serveranalysisapi
 
