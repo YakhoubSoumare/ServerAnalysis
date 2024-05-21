@@ -15,6 +15,8 @@ COPY . .
 WORKDIR "/src"
 RUN dotnet build "ServerAnalysisAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+RUN dotnet test --no-restore --verbosity normal
+
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "ServerAnalysisAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
