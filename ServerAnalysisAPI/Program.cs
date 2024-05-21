@@ -99,10 +99,10 @@ using (var scope = app.Services.CreateScope())
 	accountService.CreateRolesAsync().GetAwaiter().GetResult();
 
 	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-	dataSeeder.SeedData().Wait();
+	await dataSeeder.SeedData();
 }
 
-app.Run();
+await app.RunAsync();
 
 #region Functions
 void ConfigureAutomapper(IServiceCollection services)
