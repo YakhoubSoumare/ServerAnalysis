@@ -40,6 +40,7 @@ pre {
 
 .pre-line {
   white-space: pre-line;
+  margin-bottom: 1em;
 }
 
 /* ====== CONTAINER STYLES ====== */
@@ -52,7 +53,7 @@ pre {
   padding: 0px;
   background-color: rgb(245, 245, 245);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-  line-height: 1.4;
+  line-height: 1.6;
   font-size: 18px;
   font-weight: 500;
 }
@@ -97,11 +98,13 @@ pre {
 .navbar ul li.hamburger {
   display: none;
   padding: 0 10px;
+  width: 35px;
 }
 
 .navbar ul.dropdown {
   flex-direction: column;
   width: 100%;
+  padding-left: 35px;
 }
 
 .navbar ul.dropdown li {
@@ -304,8 +307,6 @@ section {
   border-top: 1px solid lightgrey;
   width: 100%;
 }
-
-
 
 /* ====== MEDIA QUERIES ====== */
 

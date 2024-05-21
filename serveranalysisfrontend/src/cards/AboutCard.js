@@ -8,7 +8,9 @@ export default function About({ title, text, sources }) {
       </div>
       <div className="about-card-body">
         <hr/>
-        <p className="about-card-text  pre-line">{text}</p>
+        {text.split('\n').map((item, key) => {
+          return <p key={key} className="card-text pre-line">{item}</p>
+        })}
       </div>
       {sources.length > 0 && 
         <div className="about-card-footer">
