@@ -19,7 +19,7 @@ jobs:
 
       - name: Push Docker image to GitHub Packages
         run: |
-          echo "${{ secrets.REGISTRY_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          echo "${{ secrets.REGISTRY_TOKEN }}" | docker login ghcr.io -u ${{ secrets.USERNAME }} --password-stdin
           docker push ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest
 
   deploy:
