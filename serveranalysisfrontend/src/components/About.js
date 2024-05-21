@@ -28,6 +28,8 @@ const About = ({ data }) => {
                     {renderSectionCards('Front-End', handled_data.frontEnd)}
                     {renderSectionCards('Test', handled_data.test)}
                     {renderSectionCards('Version Control', handled_data.versionControl)}
+                    {renderSectionCards('Challenges', handled_data.challenges)}
+                    {renderSectionCards('Improvements', handled_data.improvements)}
                     {isVisible && (
                         <div className="up-top-icon" onClick={scrollToTop}>
                             <FontAwesomeIcon icon={faUpLong} size="2x" />
@@ -79,6 +81,8 @@ function handleData(data) {
     const frontEnd = createSectionData('frontEnd');
     const test = createSectionData('test');
     const versionControl = createSectionData('versionControl');
+    const challenges = createSectionData('challenges');
+    const improvements = createSectionData('improvements');
 
     return {
         ids,
@@ -91,7 +95,9 @@ function handleData(data) {
         security,
         frontEnd,
         test,
-        versionControl
+        versionControl,
+        challenges,
+        improvements
     };
 }
 
