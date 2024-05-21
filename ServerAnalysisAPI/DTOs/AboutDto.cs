@@ -13,4 +13,6 @@ public class AboutDto
     public string FrontEnd { get; set; } = string.Empty;
     public string Test { get; set; } = string.Empty;
     public string VersionControl { get; set; } = string.Empty;
+    public string Challenges { get; set; } = string.Empty;
+	public string Improvements { get; set; } = string.Empty;
 }
