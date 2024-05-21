@@ -24,11 +24,11 @@ jobs:
           echo "${{ secrets.REGISTRY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker push ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest
 
-      - name: Deploy to Render
-        run: |
-          curl https://getcli.render.com | sh
-          render login --token ${{ secrets.RENDER_API_KEY }}
-          render deploy --type web --name serveranalysisapi
+      # - name: Deploy to Render
+      #   run: |
+      #     curl https://getcli.render.com | sh
+      #     render login --token ${{ secrets.RENDER_API_KEY }}
+      #     render deploy --type web --name serveranalysisapi
 
       - name: Login to Azure
         run: |
