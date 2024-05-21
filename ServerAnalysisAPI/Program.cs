@@ -91,16 +91,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// using (var scope = app.Services.CreateScope())
-// {
-// 	var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-// 	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-// 	var accountService = new AccountService(userManager, roleManager);
-// 	accountService.CreateRolesAsync().GetAwaiter().GetResult();
+using (var scope = app.Services.CreateScope())
+{
+	var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+	var accountService = scope.ServiceProvider.GetRequiredService<AccountService>();
+	accountService.CreateRolesAsync().GetAwaiter().GetResult();
 
-// 	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-// 	await dataSeeder.SeedData();
-// }
+	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+	await dataSeeder.SeedData();
+}
 
 await app.RunAsync();
 
