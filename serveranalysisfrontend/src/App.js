@@ -61,7 +61,7 @@ function App() {
                 </nav>
                 <MainBody data={data} currentRoute={currentRoute} setCurrentRoute={setCurrentRoute}/>
                 <footer className="app-footer transparent">
-                    <p>© 2024 - Developed by Yakhoub Soumare, IT-Högskolan & Meta Bytes</p>
+                    <p>© 2024 - Developed by Yakhoub Soumare, IT-Högskolan</p>
                 </footer>
             </div>
         </Router>
