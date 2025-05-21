@@ -4,6 +4,11 @@
 Planning/
 
 ###################################### BACKEND ######################################
+
+# dev and local settings
+ServerAnalysisAPI/appsettings.json
+ServerAnalysisAPI/appsettings.Development.json
+
 # env file
 .env
 
