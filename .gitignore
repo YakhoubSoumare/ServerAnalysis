@@ -3,6 +3,9 @@
 # guides and implementation plans
 Planning/
 
+# used to import data from postgresql database and seed it
+**/Development/
+
 ###################################### BACKEND ######################################
 
 # dev and local settings
@@ -24,6 +27,12 @@ ServerAnalysisAPI/appsettings.Development.json
 
 # azure user secrets
 secrets.json
+
+# Ignore Terraform sensitive files
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
 
 ###################################### FRONTEND ######################################
 
