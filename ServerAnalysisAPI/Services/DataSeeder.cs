@@ -24,8 +24,9 @@ public class DataSeeder : IDataSeeder
 		// If in development environment, loads environment variables from .env file
 		if (_env.IsDevelopment())
 		{
-			DotNetEnv.Env.Load("../../.env");
+			DotNetEnv.Env.Load("../.env");
 		}
+		
 		// Get admin credentials from environment variables
 		var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL");
 		var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
