@@ -4,28 +4,25 @@ using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
-string? connectionString;
 
 
 builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 {
 	if (env.IsDevelopment())
 	{
-		DotNetEnv.Env.Load("../.env");
-		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+		options.UseInMemoryDatabase("TestDb");
 	}
 	else
 	{
-		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+		var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+
+		if (connectionString is null)
+		{
+			throw new InvalidOperationException("Connection string is not set.");
+		}
+
+		options.UseNpgsql(connectionString);
 	}
-
-	if (connectionString is null)
-	{
-		throw new InvalidOperationException("Connection string is not set.");
-	}
-
-
-	options.UseNpgsql(connectionString);
 	
 });
 
