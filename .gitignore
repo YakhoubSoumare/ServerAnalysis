@@ -3,6 +3,9 @@
 # guides and implementation plans
 Planning/
 
+# used to import data from postgresql database and seed it
+**/Development/
+
 ###################################### BACKEND ######################################
 
 # dev and local settings

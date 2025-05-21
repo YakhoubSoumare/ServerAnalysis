@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using ServerAnalysisAPI.Profiles;
 using Swashbuckle.AspNetCore.Filters;
+using Development;
 
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
@@ -35,7 +36,7 @@ builder.Services.AddSwaggerGen(options =>
 	options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
 	{
 		In = ParameterLocation.Header,
-		Name = "Autorization",
+		Name = "Authorization",
 		Type = SecuritySchemeType.ApiKey
 	});
 
@@ -88,16 +89,32 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+// Apply migrations and seed database on app startup
+using (var scope = app.Services.CreateAsyncScope())
 {
+	var environment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
+	var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+	if (environment.IsDevelopment())
+	{
+		dbContext.Database.EnsureCreated();
+	}
+	else
+	{
+		dbContext.Database.Migrate();
+	}
+
 	var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 	var accountService = scope.ServiceProvider.GetRequiredService<IAccountService>();
-	accountService.CreateRolesAsync().GetAwaiter().GetResult();
+	await accountService.CreateRolesAsync();
 
 	var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
 	await dataSeeder.SeedData();
 }
+
+// Simple root endpoint to verify the API is running and avoid 404 on accessing '/'
+app.MapGet("/", () => "ServerAnalysisAPI is running.");
 
 await app.RunAsync();
 
