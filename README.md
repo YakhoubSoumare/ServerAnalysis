@@ -1,3 +1,8 @@
+## ⚠️ NOTICE  
+**Ongoing updates and refactoring to resolve initial issues with the project.**  
+_Last updated: 2025-05-21_
+
+
 # Thesis
 This project is a comprehensive analysis of server-based applications and serverless functions, implemented with a variety of technologies.
 
