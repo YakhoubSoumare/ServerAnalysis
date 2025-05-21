@@ -28,6 +28,12 @@ ServerAnalysisAPI/appsettings.Development.json
 # azure user secrets
 secrets.json
 
+# Ignore Terraform sensitive files
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+
 ###################################### FRONTEND ######################################
 
 # dependencies
