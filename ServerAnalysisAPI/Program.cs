@@ -9,21 +9,26 @@ var env = builder.Environment;
 
 builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 {
+	string? connectionString;
+
 	if (env.IsDevelopment())
-	{
-		options.UseInMemoryDatabase("TestDb");
+	{ // Development
+		// options.UseInMemoryDatabase("TestDb");
+		DotNetEnv.Env.Load("../.env");
+		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
 	}
 	else
-	{
-		var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
-
-		if (connectionString is null)
-		{
-			throw new InvalidOperationException("Connection string is not set.");
-		}
-
-		options.UseNpgsql(connectionString);
+	{ // Production
+		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
 	}
+
+	if (string.IsNullOrWhiteSpace(connectionString))
+	{
+		throw new InvalidOperationException("Connection string is not set.");
+	}
+	Console.WriteLine($"Using connection string: {connectionString}");
+
+	options.UseSqlServer(connectionString, sqlOptions => { sqlOptions.EnableRetryOnFailure(); });
 	
 });
 
