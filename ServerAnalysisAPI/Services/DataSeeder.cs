@@ -31,8 +31,8 @@ public class DataSeeder : IDataSeeder
 		}
 		
 		// Get admin credentials from environment variables
-		var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL");
-		var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+		var adminEmail = Environment.GetEnvironmentVariable("SEEDED_ADMIN_EMAIL");
+		var adminPassword = Environment.GetEnvironmentVariable("SEEDED_ADMIN_PASSWORD");
 
 		// Check if any of the environment variables are null
 		if (adminEmail == null)

@@ -71,14 +71,14 @@ variable "connection_string_value" {
   sensitive   = true
 }
 
-variable "admin_email" {
+variable "seeded_admin_email" {
   type      = string
-  description = "Admin email connected to .NET identity"
+  description = "Admin email connected to .NET identity used by DataSeeder"
   sensitive = true
 }
 
-variable "admin_password" {
+variable "seeded_admin_password" {
   type      = string
-  description = "Admin password connected to .NET identity"
+  description = "Admin password connected to .NET identity used by DataSeeder"
   sensitive = true
 }
