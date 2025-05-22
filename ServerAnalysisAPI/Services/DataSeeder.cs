@@ -68,6 +68,7 @@ public class DataSeeder : IDataSeeder
 		await SeedTopicSourcesAsync();
 		await SeedAboutsAsync();
 		await SeedAboutSourcesAsync();
+		await SeedImagesAsync();
 	}
 
 	private async Task SeedSourcesAsync()
@@ -273,22 +274,22 @@ public class DataSeeder : IDataSeeder
 
 				var images = new List<Image>
 				{
-					new Image { Id = 1, Title = "Introductions", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-introduction.webp", TopicId = 1 },
-					new Image { Id = 2, Title = "Advantages", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-advantages.webp", TopicId = 1 },
-					new Image { Id = 3, Title = "Approaches", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-approach.webp", TopicId = 1 },
-					new Image { Id = 5, Title = "Comparisons", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-comparison.webp", TopicId = 1 },
-					new Image { Id = 6, Title = "IndustryInsights", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-industryInsights.webp", TopicId = 1 },
-					new Image { Id = 7, Title = "UseCases", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-useCases.webp", TopicId = 1 },
-					new Image { Id = 8, Title = "Limitations", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-limitations.webp", TopicId = 1 },
-					new Image { Id = 9, Title = "Introductions", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-introduction.webp", TopicId = 2 },
-					new Image { Id = 10, Title = "Advantages", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-advantages.webp", TopicId = 2 },
-					new Image { Id = 11, Title = "Approaches", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-approach.webp", TopicId = 2 },
-					new Image { Id = 13, Title = "Comparisons", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-comparison.webp", TopicId = 2 },
-					new Image { Id = 14, Title = "IndustryInsights", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-industryInsights.webp", TopicId = 2 },
-					new Image { Id = 15, Title = "UseCases", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-useCases.webp", TopicId = 2 },
-					new Image { Id = 16, Title = "Limitations", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-limitations.webp", TopicId = 2 },
-					new Image { Id = 4, Title = "Beneficiaries", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverbased-beneficiaries.webp", TopicId = 1 },
-					new Image { Id = 12, Title = "Beneficiaries", Url = "https://bifcvtqenhsjrameluqa.supabase.co/storage/v1/object/public/images/serverless-beneficiaries.webp", TopicId = 2 }
+					new Image { Id = 1, Title = "Introductions", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-introduction.webp", TopicId = 1 },
+					new Image { Id = 2, Title = "Advantages", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-advantages.webp", TopicId = 1 },
+					new Image { Id = 3, Title = "Approaches", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-approach.webp", TopicId = 1 },
+					new Image { Id = 5, Title = "Comparisons", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-comparison.webp", TopicId = 1 },
+					new Image { Id = 6, Title = "IndustryInsights", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-industryInsights.webp", TopicId = 1 },
+					new Image { Id = 7, Title = "UseCases", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-useCases.webp", TopicId = 1 },
+					new Image { Id = 8, Title = "Limitations", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-limitations.webp", TopicId = 1 },
+					new Image { Id = 9, Title = "Introductions", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-introduction.webp", TopicId = 2 },
+					new Image { Id = 10, Title = "Advantages", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-advantages.webp", TopicId = 2 },
+					new Image { Id = 11, Title = "Approaches", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-approach.webp", TopicId = 2 },
+					new Image { Id = 13, Title = "Comparisons", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-comparison.webp", TopicId = 2 },
+					new Image { Id = 14, Title = "IndustryInsights", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-industryInsights.webp", TopicId = 2 },
+					new Image { Id = 15, Title = "UseCases", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-useCases.webp", TopicId = 2 },
+					new Image { Id = 16, Title = "Limitations", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-limitations.webp", TopicId = 2 },
+					new Image { Id = 4, Title = "Beneficiaries", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverbased-beneficiaries.webp", TopicId = 1 },
+					new Image { Id = 12, Title = "Beneficiaries", Url = "https://serveranalysisimages.blob.core.windows.net/images/serverless-beneficiaries.webp", TopicId = 2 }
 				};
 
 				_context.Images.AddRange(images);
