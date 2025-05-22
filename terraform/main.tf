@@ -81,21 +81,27 @@ resource "azurerm_service_plan" "asp" {
 
   sku_name = var.app_service_plan_sku_size
 
-  os_type             = "Windows"  # Defines it as Windows-based
+  os_type             = "Linux"  # must be Linux for Docker
 }
 
-resource "azurerm_windows_web_app" "web_app" {
+resource "azurerm_linux_web_app" "web_app" {
   name                = "server-analysis-api-${var.environment}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id = azurerm_service_plan.asp.id
 
   site_config {
+    # configure docker container image
+    application_stack {
+      docker_image = "ghcr.io/yakhoubsoumare/serveranalysisapi"
+      docker_image_tag  = "latest"
+    }
+    
     always_on = false  # Explicitly disable "Always On"
   }
 
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "1"
+    "WEBSITES_PORT" = "8080" # required for Azure to route traffic to this port
   }
 
   connection_string {
