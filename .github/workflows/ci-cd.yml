@@ -39,5 +39,5 @@ jobs:
 
       - name: Deploy to Azure
         run: |
-          az webapp config container set --name server-analysis-api-development --resource-group rg-merry-dragon --docker-custom-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --docker-registry-server-url https://ghcr.io --docker-registry-server-user ${{ github.actor }} --docker-registry-server-password ${{ secrets.REGISTRY_TOKEN }}
+          az webapp config container set --name server-analysis-api-development --resource-group rg-merry-dragon --container-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --container-registry-url https://ghcr.io --container-registry-user ${{ secrets.USERNAME }} --container-registry-password ${{ secrets.REGISTRY_TOKEN }}
           az webapp restart --name server-analysis-api-development --resource-group rg-merry-dragon
