@@ -102,6 +102,8 @@ resource "azurerm_linux_web_app" "web_app" {
 
   app_settings = {
     "WEBSITES_PORT" = "8080" # required for Azure to route traffic to this port
+    "ADMIN_EMAIL"     = var.admin_email
+    "ADMIN_PASSWORD"  = var.admin_password
   }
 
   connection_string {

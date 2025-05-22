@@ -70,3 +70,15 @@ variable "connection_string_value" {
   description = "Connection string for the App Service"
   sensitive   = true
 }
+
+variable "admin_email" {
+  type      = string
+  description = "Admin email connected to .NET identity"
+  sensitive = true
+}
+
+variable "admin_password" {
+  type      = string
+  description = "Admin password connected to .NET identity"
+  sensitive = true
+}
