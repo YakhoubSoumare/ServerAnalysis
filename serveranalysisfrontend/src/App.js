@@ -14,9 +14,9 @@ let baseUrl;
 
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   const useLocalApi = window.confirm('You want to use local api?');
-  baseUrl = useLocalApi ? 'http://localhost:8000/api' : 'https://serveranalysisapi.onrender.com/api';
+  baseUrl = useLocalApi ? 'http://localhost:8000/api' : 'https://server-analysis-api-development.azurewebsites.net/api';
 } else {
-  baseUrl = 'https://serveranalysisapi.onrender.com/api';
+  baseUrl = 'https://server-analysis-api-development.azurewebsites.net/api';
 }
 
 const endpoints = [
@@ -128,7 +128,7 @@ const displayAccordion = () => {
             />
             <div>
                 <p><strong>Please wait,</strong></p>
-                <p>Initial load may take up to 50 seconds</p>
+                <p>Initial load may take few</p>
                 <p><strong>due to free tier hosting plan.</strong></p>
                 <p>Thank you for your patience.</p>
             </div>
