@@ -99,7 +99,7 @@ resource "azurerm_windows_web_app" "web_app" {
   }
 
   connection_string {
-    name  = "AzureConnection"
+    name  = "DATABASE_CONNECTION_STRING"
     type  = "SQLAzure"
     value = var.connection_string_value
   }

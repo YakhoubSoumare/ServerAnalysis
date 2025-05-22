@@ -1,7 +1,6 @@
 using Microsoft.OpenApi.Models;
 using ServerAnalysisAPI.Profiles;
 using Swashbuckle.AspNetCore.Filters;
-using Development;
 
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment;
@@ -14,8 +13,7 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 	if (env.IsDevelopment())
 	{ // Development
 		// options.UseInMemoryDatabase("TestDb");
-		DotNetEnv.Env.Load("../.env");
-		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+		connectionString = builder.Configuration.GetConnectionString("AzureConnection");
 	}
 	else
 	{ // Production
@@ -26,7 +24,6 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 	{
 		throw new InvalidOperationException("Connection string is not set.");
 	}
-	Console.WriteLine($"Using connection string: {connectionString}");
 
 	options.UseSqlServer(connectionString, sqlOptions => { sqlOptions.EnableRetryOnFailure(); });
 	
@@ -105,7 +102,8 @@ using (var scope = app.Services.CreateAsyncScope())
 
 	if (environment.IsDevelopment())
 	{
-		dbContext.Database.EnsureCreated();
+		// dbContext.Database.EnsureCreated(); # only for in-memory database
+		dbContext.Database.Migrate();
 	}
 	else
 	{
