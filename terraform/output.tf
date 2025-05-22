@@ -35,7 +35,7 @@ output "sql_connection_string" {
 }
 
 output "web_app_url" {
-  value = azurerm_windows_web_app.web_app.default_hostname
+  value = azurerm_linux_web_app.web_app.default_hostname
   description = "The default URL of the deployed web app"
 }
 
