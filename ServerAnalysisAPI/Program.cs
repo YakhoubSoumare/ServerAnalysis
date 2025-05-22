@@ -105,7 +105,8 @@ using (var scope = app.Services.CreateAsyncScope())
 
 	if (environment.IsDevelopment())
 	{
-		dbContext.Database.EnsureCreated();
+		// dbContext.Database.EnsureCreated(); # only for in-memory database
+		dbContext.Database.Migrate();
 	}
 	else
 	{
