@@ -1,13 +1,21 @@
 ## ⚠️ NOTICE  
 **Ongoing updates and refactoring to resolve initial issues with the project.**  
-_Last updated: 2025-05-21_
+_Last updated: 2025-05-22_
+
+
+## 🔄 Backend Updates
+- Migrated database and storage from Supabase to Azure.
+- Introduced Infrastructure as Code (IaC) using Terraform to configure Azure resources.
+- Resolved deployment issues on Azure by updating Docker setup and web app configuration.
+- Transitioned CI/CD pipeline from Render to Azure using secure credentials.
+
 
 
 # Thesis
 This project is a comprehensive analysis of server-based applications and serverless functions, implemented with a variety of technologies.
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get the user a copy of the project up and running on the local machine for development and testing purposes.
 
 ### Prerequisites
 - PostgreSQL
@@ -21,29 +29,29 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/yourusername/the-repo-name.git
 ```
 2. Navigate to the project directory
 ```bash
-    cd your-repo-name
+    cd the-repo-name
 ```
-3. Install the necessary dependencies. For a .NET project, you would use the `dotnet restore` command.
+3. Install the necessary dependencies. For a .NET project, the user would use the `dotnet restore` command.
 ```bash
     dotnet restore
 ```
-4. Set up your database. This step will vary depending on your database setup. You might need to run a script to create and populate the database or you might need to set up a connection to a remote database.
+4. Set up the database. This step will vary depending on the database setup. the user might need to run a script to create and populate the database or the user might need to set up a connection to a remote database.
 
-5. Start the development server. For a .NET project, you would use the `dotnet run` command.
+5. Start the development server. For a .NET project, the user would use the `dotnet run` command.
 ```bash
     dotnet run
 ```
 
-Please replace the placeholders (`yourusername`, `your-repo-name`, etc.) with the actual values for your project. Also, adjust the database setup step based on your project's specific requirements.
+Please replace the placeholders (`yourusername`, `the-repo-name`, etc.) with the actual values for the project. Also, adjust the database setup step based on the project's specific requirements.
 
 ## Usage
 To use this project, follow these steps:
 
-Once you have the project running on your local machine (see the Installation section), navigate to `http://localhost:3000` (or whatever port your project is running on) in your web browser.
+Once the user have the project running on the local machine (see the Installation section), navigate to `http://localhost:3000` (or whatever port the project is running on) in the web browser.
 
 - **Navigate through the application**: 
 Use the navigation bar/menu to move between different sections of the application. 
@@ -108,7 +116,7 @@ This project uses a variety of technologies:
 - The CI part of the workflow works fine for Render, but more research is needed to resolve issues with its' CD part of the workflow.
 
 ## Discussion
-If you have any questions or would like to discuss this project further, feel free to contact me on: 
+If the user have any questions or would like to discuss this project further, feel free to contact me on: 
 [LinkedIn](https://www.linkedin.com/in/yakhoub-soumare-2019/).
 
 ## Website
