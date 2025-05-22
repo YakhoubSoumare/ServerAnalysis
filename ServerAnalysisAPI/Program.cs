@@ -24,7 +24,7 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 	}
 	else
 	{ // Production
-		connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+		connectionString = builder.Configuration.GetConnectionString("DATABASE_CONNECTION_STRING");
 	}
 
 	if (string.IsNullOrWhiteSpace(connectionString))
