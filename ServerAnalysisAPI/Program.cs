@@ -3,6 +3,13 @@ using ServerAnalysisAPI.Profiles;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Bind ASP.NET Core to port 8080 for Azure
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080);
+});
+
 var env = builder.Environment;
 
 
