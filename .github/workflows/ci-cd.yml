@@ -40,7 +40,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./ServerAnalysis/terraform
+        working-directory: terraform
 
       - name: Terraform Plan
         run: |
@@ -52,7 +52,7 @@ jobs:
             -var='appservice_outbound_ips=${{ secrets.APP_OUTBOUND_IPS_JSON }}' \
             -var="connection_string_value=${{ secrets.DATABASE_CONNECTION_STRING }}" \
             -var="environment=${{ secrets.ENVIRONMENT }}"
-        working-directory: ./ServerAnalysis/terraform
+        working-directory: terraform
 
       - name: Terraform Apply
         run: |
@@ -64,7 +64,7 @@ jobs:
             -var='appservice_outbound_ips=${{ secrets.APP_OUTBOUND_IPS_JSON }}' \
             -var="connection_string_value=${{ secrets.DATABASE_CONNECTION_STRING }}" \
             -var="environment=${{ secrets.ENVIRONMENT }}"
-        working-directory: ./ServerAnalysis/terraform
+        working-directory: terraform
         
       - name: Set WEBSITES_PORT setting
         run: |
