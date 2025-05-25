@@ -38,9 +38,9 @@ jobs:
         
       - name: Set WEBSITES_PORT setting
         run: |
-          az webapp config appsettings set --resource-group rg-merry-dragon --name server-analysis-api-development --settings WEBSITES_PORT=8080
+          az webapp config appsettings set --resource-group rg-composed-shad --name server-analysis-api-development --settings WEBSITES_PORT=8080
 
       - name: Deploy to Azure
         run: |
-          az webapp config container set --name server-analysis-api-development --resource-group rg-merry-dragon --container-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --container-registry-url https://ghcr.io --container-registry-user ${{ secrets.USERNAME }} --container-registry-password ${{ secrets.REGISTRY_TOKEN }}
-          az webapp restart --name server-analysis-api-development --resource-group rg-merry-dragon
+          az webapp config container set --name server-analysis-api-development --resource-group rg-composed-shad --container-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --container-registry-url https://ghcr.io --container-registry-user ${{ secrets.USERNAME }} --container-registry-password ${{ secrets.REGISTRY_TOKEN }}
+          az webapp restart --name server-analysis-api-development --resource-group rg-composed-shad
