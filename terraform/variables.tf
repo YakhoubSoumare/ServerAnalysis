@@ -82,3 +82,13 @@ variable "seeded_admin_password" {
   description = "Admin password connected to .NET identity used by DataSeeder"
   sensitive = true
 }
+
+variable "docker_registry_username" {
+  type        = string
+  description = "GitHub username for Docker image access"
+}
+
+variable "docker_registry_password" {
+  type        = string
+  description = "GitHub PAT for Docker image access"
+}

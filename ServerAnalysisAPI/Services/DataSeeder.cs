@@ -18,48 +18,78 @@ public class DataSeeder : IDataSeeder
 
 	public async Task SeedData()
 	{
-		// Creates Admin role
-		if (!await _roleManager.RoleExistsAsync("Admin"))
-		{
-			await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
-		}
-
-		// If in development environment, loads environment variables from .env file
+		// Load .env file in development
 		if (_env.IsDevelopment())
 		{
 			DotNetEnv.Env.Load("../.env");
 		}
 		
-		// Get admin credentials from environment variables
+		// Read credentials from environment variables
 		var adminEmail = Environment.GetEnvironmentVariable("SEEDED_ADMIN_EMAIL");
 		var adminPassword = Environment.GetEnvironmentVariable("SEEDED_ADMIN_PASSWORD");
 
-		// Check if any of the environment variables are null
-		if (adminEmail == null)
+		// Handle missing config
+		if (string.IsNullOrWhiteSpace(adminEmail) || string.IsNullOrWhiteSpace(adminPassword))
 		{
-			throw new Exception("Admin email not set in environment variables");
+			var message = "SEEDED_ADMIN_EMAIL or SEEDED_ADMIN_PASSWORD is missing.";
+			if (_env.IsDevelopment())
+			{
+				// Fail fast in development
+				throw new Exception(message);
+			}
+			else
+			{
+				// Skip in production
+				Console.WriteLine("⚠️ " + message + " Admin user will not be seeded.");
+				return; 
+			}
 		}
 
-		if (adminPassword == null)
+		// Ensure the Admin role exists
+		if (!await _roleManager.RoleExistsAsync("Admin"))
 		{
-			throw new Exception("Admin password not set in environment variables");
+			var roleResult = await _roleManager.CreateAsync(new IdentityRole("Admin"));
+			if (!roleResult.Succeeded)
+			{
+				Console.WriteLine("⚠️ Failed to create Admin role: " +
+					string.Join("; ", roleResult.Errors.Select(e => e.Description)));
+				return;
+			}
 		}
 
-		// Create Admin user
-		var user = new IdentityUser { UserName = adminEmail };
-		var result = await _userManager.CreateAsync(user, adminPassword);
-
-		if (result.Succeeded)
+		// Check if admin user exists
+    	var existingUser = await _userManager.FindByEmailAsync(adminEmail);
+		if (existingUser == null)
 		{
-			await _userManager.AddToRoleAsync(user, "Admin");
+			var newUser = new IdentityUser
+			{
+				UserName = adminEmail,
+				Email = adminEmail,
+				EmailConfirmed = true
+			};
+
+			var userResult = await _userManager.CreateAsync(newUser, adminPassword);
+			if (!userResult.Succeeded)
+			{
+				Console.WriteLine("⚠️ Failed to create admin user: " +
+					string.Join("; ", userResult.Errors.Select(e => e.Description)));
+				return;
+			}
+
+			existingUser = newUser;
+			Console.WriteLine("✅ Admin user created.");
 		}
 		else
 		{
-			// Log the errors
-			foreach (var error in result.Errors)
-			{
-				Console.WriteLine(error.Description);
-			}
+			Console.WriteLine("ℹ️ Admin user already exists.");
+		}
+
+		// Ensure user is in Admin role
+		var roles = await _userManager.GetRolesAsync(existingUser);
+		if (!roles.Contains("Admin"))
+		{
+			await _userManager.AddToRoleAsync(existingUser, "Admin");
+			Console.WriteLine("✅ Admin user added to Admin role.");
 		}
 
 		// Seed tables separately
@@ -191,13 +221,13 @@ public class DataSeeder : IDataSeeder
 						Overview = "This study explores modern cloud architectures' implementation. It compares server-based applications with serverless functions, analyzing different topics of discussion. It provides insights for developers and companies considering cloud architectures, aiming for a balanced view.\nThe practical component involves developing a secure full-stack system for production use with a database, an API, a Front-End and Deployment to Cloud providers.\nIn this section, tools used to develop the system will be covered.",
 						Language = "The system is developed using the programming language C# primarily due to the education's focus on .NET full stack development with C#.\nC# offers robustness, type safety and extensive support for object-oriented programming. Its design is tailored for .NET, ensuring smooth integration with .NET libraries and tools. The language is also a popular choice for web development with a wide user network and ample support resources.\nSource-links: [18]",
 						Framework = ".NET 8.0 is chosen as the framework for its advanced features, performance enhancements and support for modern development methodologies. It integrates support for building web APIs with features like model binding, validation and a built-in dependency injection container.\nSource-links: [19][20]",
-						API = "The API is deployed on Render, which offers a free tier suitable for small projects or personal use. Render provides automatic HTTPS. It was chosen over other hosting services for its simplicity, cost-effectiveness and comprehensive features, even in the free tier.\nTo ensure the API can run on the Render platform, a Dockerfile specifying the application's environment and settings is required.\nSource-links: [15][16]",
-						Database = "The database used is PostgreSQL, deployed on Supabase.\nSupabase offers a free tier and is a powerful open-source alternative to Firebase. It seamlessly interacts with PostgreSQL and offers a user-friendly web interface for database management. PostgreSQL offers search capabilities with full text and support for advanced query operations.\nSource-links: [17]",
+						API = "The API is deployed on Render, which offers a free tier suitable for small projects or personal use. Render provides automatic HTTPS. It was chosen over other hosting services for its simplicity, cost-effectiveness and comprehensive features, even in the free tier.\nTo ensure the API can run on the Render platform, a Dockerfile specifying the application's environment and settings is required.\n\nUpdate: The API is now deployed on Microsoft Azure using App Service and Docker. Azure provides better scalability, integration with infrastructure provisioning (Terraform), and enterprise-level reliability.\nSource-links: [15][16]",
+						Database = "The database used is PostgreSQL, deployed on Supabase.\nSupabase offers a free tier and is a powerful open-source alternative to Firebase. It seamlessly interacts with PostgreSQL and offers a user-friendly web interface for database management. PostgreSQL offers search capabilities with full text and support for advanced query operations.\n\nUpdate: Supabase has been replaced with Azure SQL (SQL Server). The database is provisioned and managed using Terraform. This aligns with the .NET ecosystem and offers tighter integration with other Azure services.\nSource-links: [17]",
 						Security = "Authentication and authorization for user management, Entity Framework Identity was chosen, providing a framework for managing user accounts, roles and permissions. It supports features like account activation, password reset and other management functions.\nAdditionally, with the use of .NET 8.0, built-in authentication and authorization features are provided, eliminating the need for external libraries like JWT.\nSource-links: [13][14]",
 						FrontEnd = "React is chosen as the front-end development tool instead of Blazor because of its longer tenure and broader user network compared to Blazor. This means there is a wider range of resources, instructions and libraries available to facilitate the development process.\nIn terms of performance, studies have shown that React is generally faster than Blazor, especially for complex and large applications.\nIn the job market, React is more attractive; meaning knowledge of React can open up more career opportunities in the future.\nLastly, React's foundation in JavaScript makes it easy to integrate with other JavaScript libraries and frameworks, providing flexibility and extended functionality in the project.\nSource-links: [21][22]",
 						Test = "For testing, unit tests were conducted using MSTest. The choice was based on its stable integration with Entity Framework and its ability to effectively test APIs.\nMSTest provides good tools for isolating and testing individual components, which is important to ensure the API works correctly and reliably.\nSource-links: [23]",
 						VersionControl = "Git was used for version control, while GitHub was used as the code repository.\nGitHub Packages are also offered along with tokens to send Docker images to a registry and then deploy the API on Render's platform. This helps maintain sustainability and flexibility.",
-						Challenges = "CI/CD with GitHub Actions is implemented to improve deployment. The CI part for Render succeeds, but more research is needed to resolve issues with the CD part. The solution in the project is to handle deployment manually with GitHub Packages containing the Docker Image for the API sent by the CI part.\nMicrosoft Azure CI/CD succeeds, however the Azure portal does not recognize the port exposed in the Dockerfile. Ongoing efforts include adding port descriptions in both CI/CD and Azure portal's resources.",
+						Challenges = "CI/CD with GitHub Actions is implemented to improve deployment. The CI part for Render succeeds, but more research is needed to resolve issues with the CD part. The solution in the project is to handle deployment manually with GitHub Packages containing the Docker Image for the API sent by the CI part.\nMicrosoft Azure CI/CD succeeds, however the Azure portal does not recognize the port exposed in the Dockerfile. Ongoing efforts include adding port descriptions in both CI/CD and Azure portal's resources.\n\nUpdate: The port recognition issue in Azure has been resolved by explicitly configuring port exposure in the Dockerfile and Azure App Service. The application is now fully deployed using GitHub Actions and Azure.",
 						Improvements = "An area for improvement is to introduce integration tests in addition to unit tests to ensure that different components work together and identify issues that unit tests might not detect. This would increase system reliability and identify potential faults at an early stage.\nThe project can also limit and control various policies for CORS configuration."
 					}
 				};

@@ -9,8 +9,6 @@ _Last updated: 2025-05-22_
 - Resolved deployment issues on Azure by updating Docker setup and web app configuration.
 - Transitioned CI/CD pipeline from Render to Azure using secure credentials.
 
-
-
 # Thesis
 This project is a comprehensive analysis of server-based applications and serverless functions, implemented with a variety of technologies.
 
@@ -18,11 +16,13 @@ This project is a comprehensive analysis of server-based applications and server
 These instructions will get the user a copy of the project up and running on the local machine for development and testing purposes.
 
 ### Prerequisites
-- PostgreSQL
 - .NET 8.0
 - Microsoft.AspNet.WebApi
 - AspNetCore.Identity
-- RLS (Row Level Security)
+- Azure SQL (SQL Server)
+- Terraform (for provisioning infrastructure)
+- ~~PostgreSQL~~ (previously used via Supabase)
+- ~~RLS (Row Level Security)~~ (previously configured in Supabase; not currently implemented)
 
 
 ### Installation
@@ -67,7 +67,8 @@ This project uses a variety of technologies:
 - .NET 8.0: The project uses the .NET 8.0 framework.
 - Microsoft.AspNet.WebApi: This package is used to build the API.
 - AspNetCore.Identity: This package is used for user authentication.
-- RLS (Row Level Security): This is used for database security.
+- Infrastructure as Code (IaC): Terraform is used to provision Azure resources including SQL Server and databases.
+- ~~RLS (Row Level Security):~~ Previously managed via Supabase; not yet implemented in Azure SQL.
 
 ### Front-End
 - React.js: The front-end interface is built with React.js.
@@ -78,12 +79,17 @@ This project uses a variety of technologies:
 - MSTest: Unit tests are written using the MSTest framework.
 
 ### Database
-- PostgreSQL: The project uses a PostgreSQL database.
+- ✅ Azure SQL (SQL Server): Currently used for all backend data storage.
+- ~~PostgreSQL (Supabase)~~: Previously used during development.
 
 ### Deployment
 - Docker Image: The project is containerized using Docker.
 - GitHub Packages: The Docker image is stored in GitHub Packages.
-- Render/Microsoft Azure/Supabase/Netlify: The project is deployed on these platforms.
+- ✅ Microsoft Azure: Currently used for backend/API and storage.
+- ✅ Netlify: Used for frontend (unchanged).
+- Terraform (IaC): Infrastructure on Azure is now configured using Terraform.
+- ~~Render~~: Previously used for backend.
+- ~~Supabase~~: Previously used for storage.
 
 ### CI/CD
 - GitHub Actions: This is used for continuous integration and continuous deployment.
@@ -100,27 +106,21 @@ This project uses a variety of technologies:
 ### Unit Tests
 - MSTest
 
-## Deployment
-- Docker Image
-- GitHub Packages
-- Render
-- Microsoft Azure
-- Supabase
-- Netlify
-
 ### Continuous Integration/Continuous Deployment (CI/CD)
 - GitHub Actions is used for CI/CD.
 
-- The CI/CD workflow works for deploying to Microsoft Azure, but there is an issue with the Azure portal not recognizing the port even when it is set in the workflow.
+- ✅ **Update:** Azure deployment issue has been resolved, and the project is now fully deployed using **Microsoft Azure** instead of Render.
 
-- The CI part of the workflow works fine for Render, but more research is needed to resolve issues with its' CD part of the workflow.
+- ~~The CI/CD workflow works for deploying to Microsoft Azure, but there is an issue with the Azure portal not recognizing the port even when it is set in the workflow.~~
+
+- ~~The CI part of the workflow works fine for Render, but more research is needed to resolve issues with its' CD part of the workflow.~~
 
 ## Discussion
 If the user have any questions or would like to discuss this project further, feel free to contact me on: 
 [LinkedIn](https://www.linkedin.com/in/yakhoub-soumare-2019/).
 
 ## Website
-- [Server Analysis](https://server-analysis.netlify.app/) (Cold Start due to Free Tier hosting of API)
+- [Server Analysis](https://server-analysis.netlify.app/) (Possible Cold Start due to Free Tier hosting of API)
 
 ## Future Improvements
 - Integration Tests

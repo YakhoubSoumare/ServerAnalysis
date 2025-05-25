@@ -101,9 +101,12 @@ resource "azurerm_linux_web_app" "web_app" {
   }
 
   app_settings = {
-    "WEBSITES_PORT" = "8080" # required for Azure to route traffic to this port
-    "SEEDED_ADMIN_EMAIL"     = var.seeded_admin_email
-    "SEEDED_ADMIN_PASSWORD"  = var.seeded_admin_password
+    "WEBSITES_PORT"                  = "8080"
+    "SEEDED_ADMIN_EMAIL"            = var.seeded_admin_email
+    "SEEDED_ADMIN_PASSWORD"         = var.seeded_admin_password
+    "DOCKER_REGISTRY_SERVER_URL"    = "https://ghcr.io"
+    "DOCKER_REGISTRY_SERVER_USERNAME" = var.docker_registry_username
+    "DOCKER_REGISTRY_SERVER_PASSWORD" = var.docker_registry_password
   }
 
   connection_string {
