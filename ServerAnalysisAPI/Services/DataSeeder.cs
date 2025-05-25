@@ -18,48 +18,78 @@ public class DataSeeder : IDataSeeder
 
 	public async Task SeedData()
 	{
-		// Creates Admin role
-		if (!await _roleManager.RoleExistsAsync("Admin"))
-		{
-			await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
-		}
-
-		// If in development environment, loads environment variables from .env file
+		// Load .env file in development
 		if (_env.IsDevelopment())
 		{
 			DotNetEnv.Env.Load("../.env");
 		}
 		
-		// Get admin credentials from environment variables
+		// Read credentials from environment variables
 		var adminEmail = Environment.GetEnvironmentVariable("SEEDED_ADMIN_EMAIL");
 		var adminPassword = Environment.GetEnvironmentVariable("SEEDED_ADMIN_PASSWORD");
 
-		// Check if any of the environment variables are null
-		if (adminEmail == null)
+		// Handle missing config
+		if (string.IsNullOrWhiteSpace(adminEmail) || string.IsNullOrWhiteSpace(adminPassword))
 		{
-			throw new Exception("Admin email not set in environment variables");
+			var message = "SEEDED_ADMIN_EMAIL or SEEDED_ADMIN_PASSWORD is missing.";
+			if (_env.IsDevelopment())
+			{
+				// Fail fast in development
+				throw new Exception(message);
+			}
+			else
+			{
+				// Skip in production
+				Console.WriteLine("⚠️ " + message + " Admin user will not be seeded.");
+				return; 
+			}
 		}
 
-		if (adminPassword == null)
+		// Ensure the Admin role exists
+		if (!await _roleManager.RoleExistsAsync("Admin"))
 		{
-			throw new Exception("Admin password not set in environment variables");
+			var roleResult = await _roleManager.CreateAsync(new IdentityRole("Admin"));
+			if (!roleResult.Succeeded)
+			{
+				Console.WriteLine("⚠️ Failed to create Admin role: " +
+					string.Join("; ", roleResult.Errors.Select(e => e.Description)));
+				return;
+			}
 		}
 
-		// Create Admin user
-		var user = new IdentityUser { UserName = adminEmail };
-		var result = await _userManager.CreateAsync(user, adminPassword);
-
-		if (result.Succeeded)
+		// Check if admin user exists
+    	var existingUser = await _userManager.FindByEmailAsync(adminEmail);
+		if (existingUser == null)
 		{
-			await _userManager.AddToRoleAsync(user, "Admin");
+			var newUser = new IdentityUser
+			{
+				UserName = adminEmail,
+				Email = adminEmail,
+				EmailConfirmed = true
+			};
+
+			var userResult = await _userManager.CreateAsync(newUser, adminPassword);
+			if (!userResult.Succeeded)
+			{
+				Console.WriteLine("⚠️ Failed to create admin user: " +
+					string.Join("; ", userResult.Errors.Select(e => e.Description)));
+				return;
+			}
+
+			existingUser = newUser;
+			Console.WriteLine("✅ Admin user created.");
 		}
 		else
 		{
-			// Log the errors
-			foreach (var error in result.Errors)
-			{
-				Console.WriteLine(error.Description);
-			}
+			Console.WriteLine("ℹ️ Admin user already exists.");
+		}
+
+		// Ensure user is in Admin role
+		var roles = await _userManager.GetRolesAsync(existingUser);
+		if (!roles.Contains("Admin"))
+		{
+			await _userManager.AddToRoleAsync(existingUser, "Admin");
+			Console.WriteLine("✅ Admin user added to Admin role.");
 		}
 
 		// Seed tables separately
