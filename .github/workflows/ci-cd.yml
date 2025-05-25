@@ -30,11 +30,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Login to Azure
         uses: azure/login@v1
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./ServerAnalysis/terraform
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+            -var="seeded_admin_email=${{ secrets.SEEDED_ADMIN_EMAIL }}" \
+            -var="seeded_admin_password=${{ secrets.SEEDED_ADMIN_PASSWORD }}" \
+            -var="admin_username=${{ secrets.AZURE_SQL_ADMIN_USERNAME }}" \
+            -var="sql_db_name=${{ secrets.AZURE_SQL_DATABASE }}" \
+            -var='appservice_outbound_ips=${{ secrets.APP_OUTBOUND_IPS_JSON }}' \
+            -var="connection_string_value=${{ secrets.DATABASE_CONNECTION_STRING }}" \
+            -var="environment=${{ secrets.ENVIRONMENT }}"
+        working-directory: ./ServerAnalysis/terraform
+
+      - name: Terraform Apply
+        run: |
+          terraform apply -auto-approve \
+            -var="seeded_admin_email=${{ secrets.SEEDED_ADMIN_EMAIL }}" \
+            -var="seeded_admin_password=${{ secrets.SEEDED_ADMIN_PASSWORD }}" \
+            -var="admin_username=${{ secrets.AZURE_SQL_ADMIN_USERNAME }}" \
+            -var="sql_db_name=${{ secrets.AZURE_SQL_DATABASE }}" \
+            -var='appservice_outbound_ips=${{ secrets.APP_OUTBOUND_IPS_JSON }}' \
+            -var="connection_string_value=${{ secrets.DATABASE_CONNECTION_STRING }}" \
+            -var="environment=${{ secrets.ENVIRONMENT }}"
+        working-directory: ./ServerAnalysis/terraform
         
       - name: Set WEBSITES_PORT setting
         run: |
@@ -44,3 +74,7 @@ jobs:
         run: |
           az webapp config container set --name server-analysis-api-development --resource-group rg-merry-dragon --container-image-name ghcr.io/${{ secrets.USERNAME }}/serveranalysisapi:latest --container-registry-url https://ghcr.io --container-registry-user ${{ secrets.USERNAME }} --container-registry-password ${{ secrets.REGISTRY_TOKEN }}
           az webapp restart --name server-analysis-api-development --resource-group rg-merry-dragon
+
+      - name: Deployment Summary
+        if: always()
+        run: echo "CI/CD pipeline finished with status ${{ job.status }}"
