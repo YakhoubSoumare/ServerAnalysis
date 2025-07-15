@@ -1,0 +1,44 @@
+.sidebar {
+  width: 180px;
+  min-height: 100vh;
+  background-color: #2e2e2e;
+  color: white;
+  padding: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 1rem;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar a.active {
+  text-decoration: underline;
+}
+
+.close-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .close-btn {
+    display: block;
+    margin-left: auto;
+  }
+}
