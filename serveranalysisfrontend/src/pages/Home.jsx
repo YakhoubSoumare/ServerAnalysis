@@ -1,12 +1,6 @@
 import SectionCard from '../cards/SectionCard';
-import useFetchData from '../hooks/useFetchData';
 
-export default function Home() {
-  const { data, loading } = useFetchData(
-    'https://server-analysis-api-development.azurewebsites.net/api',
-    ['topics', 'sources', 'images']
-  );
-
+export default function Home({ data, loading }) {
   if (loading) {
     return (
       <div style={{ textAlign: 'center', paddingTop: '2rem' }}>
