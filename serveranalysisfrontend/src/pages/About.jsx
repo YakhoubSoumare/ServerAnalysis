@@ -1,13 +1,7 @@
-import useFetchData from '../hooks/useFetchData';
 import AboutCard from '../cards/AboutCard';
 import '../App.css';
 
-export default function About() {
-  const { data, loading } = useFetchData(
-    'https://server-analysis-api-development.azurewebsites.net/api',
-    ['abouts', 'sources']
-  );
-
+export default function About({ data, loading }) {
   if (loading) {
     return (
       <div style={{ textAlign: 'center', paddingTop: '2rem' }}>
