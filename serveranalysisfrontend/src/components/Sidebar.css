@@ -1,9 +1,11 @@
 .sidebar {
   width: 180px;
-  min-height: 100vh;
-  background-color: #2e2e2e;
+  height: calc(100vh - 20px);
+  background-color: rgba(46, 46, 46, 0.6);
   color: white;
   padding: 1rem;
+  position: fixed;
+  top: 50px;
 }
 
 .sidebar ul {
