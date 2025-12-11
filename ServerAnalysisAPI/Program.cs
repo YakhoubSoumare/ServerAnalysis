@@ -13,28 +13,58 @@ builder.WebHost.ConfigureKestrel(options =>
 var env = builder.Environment;
 
 
+//builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
+//{
+//	string? connectionString;
+
+//	if (env.IsDevelopment())
+//	{ // Development
+//		// options.UseInMemoryDatabase("TestDb");
+//		connectionString = builder.Configuration.GetConnectionString("AzureConnection");
+//	}
+//	else
+//	{ // Production
+//		connectionString = builder.Configuration.GetConnectionString("DATABASE_CONNECTION_STRING");
+//	}
+
+//	if (string.IsNullOrWhiteSpace(connectionString))
+//	{
+//		throw new InvalidOperationException("Connection string is not set.");
+//	}
+
+//	options.UseSqlServer(connectionString, sqlOptions => { sqlOptions.EnableRetryOnFailure(); });
+
+//});
+
+//var env = builder.Environment;
+
 builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
 {
-	string? connectionString;
+    string? connectionString;
 
-	if (env.IsDevelopment())
-	{ // Development
-		// options.UseInMemoryDatabase("TestDb");
-		connectionString = builder.Configuration.GetConnectionString("AzureConnection");
-	}
-	else
-	{ // Production
-		connectionString = builder.Configuration.GetConnectionString("DATABASE_CONNECTION_STRING");
-	}
+    if (env.IsDevelopment())
+    {
+        // Development: kör mot LocalDB (ingen Azure, ingen Docker)
+        connectionString = builder.Configuration.GetConnectionString("LocalConnection");
+    }
+    else
+    {
+        // Production (Azure / future): använder fortfarande "DATABASE_CONNECTION_STRING"
+        connectionString = builder.Configuration.GetConnectionString("DATABASE_CONNECTION_STRING");
+    }
 
-	if (string.IsNullOrWhiteSpace(connectionString))
-	{
-		throw new InvalidOperationException("Connection string is not set.");
-	}
+    if (string.IsNullOrWhiteSpace(connectionString))
+    {
+        throw new InvalidOperationException("Connection string is not set.");
+    }
 
-	options.UseSqlServer(connectionString, sqlOptions => { sqlOptions.EnableRetryOnFailure(); });
-	
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure();
+    });
 });
+
+
 
 builder.Services.AddControllers();
 

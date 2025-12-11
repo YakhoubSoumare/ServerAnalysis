@@ -33,9 +33,10 @@ export default function Home({ data, loading }) {
 }
 
 function handleData(all) {
-  const topicsData = all.topics;
-  const sourcesData = all.sources;
-  const imagesData = all.images;
+    const topicsData = all.topics ?? [];
+    const sourcesData = all.sources ?? [];
+    const imagesData = all.images ?? [];
+    // const aboutsData = all.abouts ?? [];
 
   const extractSources = (text) => {
     if (typeof text !== 'string') return [];

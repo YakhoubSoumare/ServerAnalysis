@@ -32,7 +32,8 @@ export default function About({ data, loading }) {
   );
 }
 
-function handleAboutData({ abouts, sources }) {
+// function handleAboutData({ abouts, sources }) {
+function handleAboutData({ abouts = [], sources = [] }) {
   const extractSources = (text) => {
     if (typeof text !== 'string') return [];
     const matches = text.matchAll(/\[(\d+)\]/g);
