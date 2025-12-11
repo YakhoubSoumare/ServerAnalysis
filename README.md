@@ -1,13 +1,18 @@
 ## ✅ Project Status  
 This project is completed and currently in a stable state.  
-_Last updated: 2025-05-25_
+_Last updated: 2025-11-12_
 
+### ⚠️ Backend Availability Notice  
+The Azure backend was temporarily unavailable due to subscription/resource deactivation.  
+The project has now been updated to fully support local development without requiring Azure.  
+Both the backend and frontend run correctly using the local setup described in this README.
 
-## 🔄 Backend Updates
-- Migrated database and storage from Supabase to Azure.
-- Introduced Infrastructure as Code (IaC) using Terraform to configure Azure resources.
-- Resolved deployment issues on Azure by updating Docker setup and web app configuration.
-- Transitioned CI/CD pipeline from Render to Azure using secure credentials.
+### 🗂️ Historical Notes (previous architecture)
+~~Migrated database and storage from Supabase to Azure.~~  
+~~Introduced Infrastructure as Code (IaC) with Terraform for Azure resources.~~  
+~~Resolved Azure deployment issues by updating Docker configuration.~~  
+~~Transitioned CI/CD pipeline from Render to Azure with secure credentials.~~
+
 
 # Thesis
 This project is a comprehensive analysis of server-based applications and serverless functions, implemented with a variety of technologies.
@@ -120,7 +125,12 @@ If the user have any questions or would like to discuss this project further, fe
 [LinkedIn](https://www.linkedin.com/in/yakhoub-soumare-2019/).
 
 ## Website
-- [Server Analysis](https://server-analysis.netlify.app/) (Possible Cold Start due to Free Tier hosting of API)
+- [Server Analysis](https://server-analysis.netlify.app/)  
+
+~~(Previously connected to an Azure-hosted API; the backend is now decommissioned.)~~
+
+The frontend is still hosted on Netlify, but the live site no longer includes backend-powered data.  
+For full functionality, including API-driven content, run both the backend and frontend locally as described in this README.
 
 ## Future Improvements
 - Integration Tests
